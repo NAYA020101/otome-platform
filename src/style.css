@@ -1,0 +1,46 @@
+/* =============================================================
+   她叙 · Her Tale — Design System · 柔粉 · 奶白 · 浅芋紫
+   ============================================================= */
+:root {
+  --bg: #FFF8F5;
+  --bg2: #FFF0EC;
+  --cw: #FFFFFF;
+  --p: #F5D6D6;
+  --p2: #E8B4B4;
+  --pp: #E8D5E8;
+  --r: #E8B4B4;
+  --t: #E8D5E8;
+  --tx: #5C4A5A;
+  --ts: #A890A0;
+  --tm: #CAB8C4;
+  --bd: #F0E4E8;
+  --ss: 0 4px 20px rgba(154,120,140,0.06);
+  --sm: 0 12px 40px rgba(154,120,140,0.1);
+  --sl: 0 20px 60px rgba(154,120,140,0.12);
+  --rs: 12px;
+  --rm: 20px;
+  --rl: 28px;
+  --tr: 0.5s cubic-bezier(.25,.46,.45,.94);
+}
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--tx);line-height:1.6;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+button{border:none;background:none;cursor:pointer;font-family:inherit}
+img{max-width:100%;display:block}
+input,textarea{font-family:inherit}
+
+.btn-p{padding:12px 36px;background:var(--p2);color:#fff;border-radius:24px;font-size:13px;font-weight:500;letter-spacing:1px;transition:all var(--tr);cursor:pointer;border:none;display:inline-block;font-family:inherit}
+.btn-p:hover{background:#DBA0A0;transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,180,180,.3)}
+
+.btn-s{padding:12px 36px;background:transparent;color:var(--tx);border:1.5px solid var(--p);border-radius:24px;font-size:13px;font-weight:500;letter-spacing:1px;transition:all var(--tr);cursor:pointer;font-family:inherit}
+.btn-s:hover{border-color:var(--p2);background:rgba(245,214,214,.1);transform:translateY(-2px)}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s cubic-bezier(.25,.46,.45,.94)}
+.reveal.in-view{opacity:1;transform:translateY(0)}
+.reveal-s>*{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s cubic-bezier(.25,.46,.45,.94)}
+.reveal-s>:nth-child(1){transition-delay:0s}
+.reveal-s>:nth-child(2){transition-delay:.12s}
+.reveal-s>:nth-child(3){transition-delay:.24s}
+.reveal-s>.in-view{opacity:1;transform:translateY(0)}

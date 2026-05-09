@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Ta・Xu · PSP Room</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Poppins:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Quicksand','Poppins',sans-serif;background:#FFD1DC}
+#scene{width:100%;height:100%;display:block;cursor:grab}
+#scene:active{cursor:grabbing}
+
+/* ====== Loading ====== */
+#loading{
+  position:fixed;inset:0;z-index:999;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#FFD1DC,#FFC3A0);
+  transition:opacity .8s}
+#loading.hide{opacity:0;pointer-events:none}
+.loading-spinner{width:40px;height:40px;border:3px solid rgba(255,255,255,.3);border-top-color:#FF8F6B;border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ====== Hint ====== */
+#hint{
+  position:fixed;bottom:40px;left:50%;transform:translateX(-50%);
+  color:rgba(255,255,255,.7);font-size:14px;font-weight:500;
+  letter-spacing:1px;text-align:center;
+  transition:opacity .6s;pointer-events:none;
+  text-shadow:0 2px 8px rgba(200,120,100,.2);
+  animation:pulse 2s ease-in-out infinite}
+#hint.hide{opacity:0}
+@keyframes pulse{0%,100%{opacity:.6}50%{opacity:1}}
+
+/* ====== 2D PSP System Overlay ====== */
+#psp-system{
+  position:fixed;inset:0;z-index:100;
+  display:none;align-items:center;justify-content:center;
+  background:rgba(255,200,180,.6);backdrop-filter:blur(12px);
+  animation:fadeIn .5s}
+#psp-system.show{display:flex}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* Console outer */
+.psp-console{
+  width:440px;max-width:94vw;
+  background:linear-gradient(150deg,#FFC0CB,#FF9EB5 40%,#F58BA0 100%);
+  border-radius:32px 32px 28px 28px;
+  padding:24px 20px 18px;
+  box-shadow:0 30px 80px rgba(250,140,160,.35),0 8px 24px rgba(250,140,160,.2),inset 0 1px 0 rgba(255,255,255,.5);
+  animation:pspEnter .5s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pspEnter{from{transform:scale(.6)translateY(40px);opacity:0}to{transform:scale(1)translateY(0);opacity:1}}
+
+.psp-speaker{display:flex;justify-content:center;gap:5px;padding:0 0 12px}
+.psp-speaker span{width:18px;height:2.5px;background:rgba(255,255,255,.3);border-radius:2px}
+
+/* Screen bezel */
+.psp-bezel{
+  background:linear-gradient(135deg,#3A2E38,#2A2028);
+  border-radius:14px;padding:10px;
+  box-shadow:inset 0 3px 12px rgba(0,0,0,.4);
+  position:relative}
+.psp-screen{
+  background:#FFF8F5;border-radius:10px;height:280px;
+  position:relative;overflow:hidden}
+
+/* Scroll container */
+.scroll-wrap{display:flex;height:100%;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.scroll-wrap::-webkit-scrollbar{height:0}
+.panel{
+  min-width:100%;height:100%;scroll-snap-align:start;
+  padding:20px 22px;display:flex;flex-direction:column;
+  animation:panelIn .3s}
+@keyframes panelIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* Arrows */
+.arrow-l,.arrow-r{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:5;
+  width:28px;height:28px;border-radius:50%;
+  background:rgba(255,255,255,.3);border:none;
+  color:rgba(255,255,255,.7);font-size:18px;line-height:1;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all .3s;font-family:inherit}
+.arrow-l{left:4px}.arrow-r{right:4px}
+.arrow-l:hover,.arrow-r:hover{background:rgba(255,255,255,.5);color:#fff}
+
+/* Dots */
+.psp-dots{display:flex;justify-content:center;gap:6px;padding:10px 0 6px}
+.psp-dots span{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.35);cursor:pointer;transition:all .3s}
+.psp-dots span.active{background:rgba(255,255,255,.7);width:16px;border-radius:3px}
+
+/* Brand */
+.psp-brand{text-align:center;padding:2px 0 6px;font-family:'Poppins',serif;font-size:9px;color:rgba(255,255,255,.45);letter-spacing:4px;text-transform:uppercase}
+
+/* Controls */
+.psp-ctrl{display:flex;align-items:center;justify-content:space-between;padding:4px 4px 0}
+.psp-dpad{display:grid;grid-template-columns:repeat(3,13px);grid-template-rows:repeat(3,13px);gap:2px}
+.psp-dpad span{background:rgba(255,255,255,.22);border-radius:4px}
+.psp-dpad span:nth-child(2){grid-column:2;grid-row:1}
+.psp-dpad span:nth-child(5){grid-column:2;grid-row:2;background:rgba(255,255,255,.32)}
+.psp-dpad span:nth-child(4){grid-column:1;grid-row:2}
+.psp-dpad span:nth-child(6){grid-column:3;grid-row:2}
+.psp-dpad span:nth-child(8){grid-column:2;grid-row:3}
+.psp-acts{display:grid;grid-template-columns:26px 26px;grid-template-rows:26px 26px;gap:2px}
+.pbtn{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;font-family:'Inter',sans-serif}
+.pbtn.t{grid-column:2;grid-row:1;background:rgba(255,255,255,.18);color:rgba(255,255,255,.5)}
+.pbtn.c{grid-column:2;grid-row:2;background:rgba(255,255,255,.12);color:rgba(255,255,255,.4)}
+.pbtn.x{grid-column:1;grid-row:2;background:rgba(255,255,255,.18);color:rgba(255,255,255,.5)}
+.pbtn.s{grid-column:1;grid-row:1;background:rgba(255,255,255,.12);color:rgba(255,255,255,.4)}
+
+/* ====== Panel Content ====== */
+.p-h{font-family:'Quicksand','Poppins',sans-serif;font-size:13px;font-weight:600;color:#E8A0A0;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px}
+.p-tt{font-family:'Poppins','Quicksand',sans-serif;font-size:17px;font-weight:600;color:#5C3A2E;letter-spacing:.3px;margin-bottom:12px;line-height:1.3}
+.p-t{font-size:12px;color:#A89090;line-height:1.7;letter-spacing:.3px}
+
+/* Avatar */
+.avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#FFB7C5,#FF9EB5);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:12px}
+
+/* Project cards */
+.p-grid{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.p-card{display:flex;gap:10px;align-items:center;padding:10px 12px;background:rgba(255,240,235,.7);border-radius:10px;transition:transform .3s,box-shadow .3s}
+.p-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(200,150,140,.1)}
+.pc-icon{font-size:20px;flex-shrink:0}
+.pc-t{font-size:12px;font-weight:600;color:#5C3A2E;margin-bottom:2px}
+.pc-d{font-size:10px;color:#A89090;line-height:1.4}
+
+/* Skill tags */
+.skills{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.skill{font-size:11px;padding:6px 14px;background:rgba(245,214,214,.25);border-radius:16px;color:#8A6A6A;font-weight:500;transition:transform .3s}
+.skill:hover{transform:translateY(-2px)}
+
+/* Contact */
+.contact-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.contact-links a{display:flex;align-items:center;gap:6px;padding:8px 16px;background:rgba(245,214,214,.2);border-radius:20px;font-size:12px;color:#5C3A2E;text-decoration:none;transition:transform .3s}
+.contact-links a:hover{transform:translateY(-2px)}
+
+/* Easter egg */
+.egg-btn{display:inline-block;margin-top:10px;padding:8px 20px;background:linear-gradient(135deg,#FFB7C5,#FF9EB5);border:none;border-radius:20px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;transition:transform .3s;font-family:inherit}
+.egg-btn:hover{transform:scale(1.05)}
+.egg-msg{margin-top:10px;font-size:13px;color:#E8A0A0;font-weight:500;min-height:20px}
+
+/* Return button */
+.return-btn{
+  position:fixed;top:20px;right:20px;z-index:110;
+  padding:10px 20px;background:rgba(255,255,255,.5);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.3);border-radius:20px;
+  color:#8A6A6A;font-size:13px;font-weight:600;cursor:pointer;
+  transition:all .3s;font-family:inherit;letter-spacing:.5px}
+.return-btn:hover{background:rgba(255,255,255,.8);transform:translateY(-2px)}
+
+/* Responsive */
+@media(max-width:600px){
+  .psp-console{padding:16px 14px 12px;border-radius:24px}
+  .psp-screen{height:240px}
+  .panel{padding:14px 16px}
+  .p-tt{font-size:15px}
+  .p-h{font-size:11px}
+  .pc-t{font-size:11px}
+  .skill{font-size:10px;padding:5px 12px}
+  .arrow-l,.arrow-r{width:24px;height:24px;font-size:14px}
+}
+</style>
+</head>
+<body>
+
+<!-- Loading -->
+<div id="loading"><div class="loading-spinner"></div></div>
+
+<!-- Hint -->
+<div id="hint">🖱 拖拽旋转 · 点击 PSP 进入</div>
+
+<!-- 3D Scene -->
+<div id="scene"></div>
+
+<!-- Return button -->
+<button class="return-btn" id="returnBtn" style="display:none">← 返回房间</button>
+
+<!-- 2D PSP System -->
+<div id="psp-system">
+  <div class="psp-console">
+    <!-- Speaker -->
+    <div class="psp-speaker"><span></span><span></span><span></span><span></span><span></span></div>
+
+    <!-- Screen -->
+    <div class="psp-bezel">
+      <div class="psp-screen" id="pspScreen">
+        <button class="arrow-l" id="arrowL">‹</button>
+        <button class="arrow-r" id="arrowR">›</button>
+        <div class="scroll-wrap" id="scrollWrap">
+
+          <!-- Panel 1: Intro -->
+          <div class="panel">
+            <div class="avatar">🎨</div>
+            <div class="p-h">自我介绍</div>
+            <div class="p-tt">Luna｜Creative Creator</div>
+            <p class="p-t">数字艺术家 &amp; 前端魔法师。用代码画画，用像素写诗。擅长将浪漫的想象转化为可交互的视觉体验。</p>
+          </div>
+
+          <!-- Panel 2: Works -->
+          <div class="panel">
+            <div class="p-h">精选作品</div>
+            <div class="p-tt" style="margin-bottom:8px">用叙事创造世界</div>
+            <div class="p-grid">
+              <div class="p-card"><span class="pc-icon">✨</span><div><div class="pc-t">「星尘粒子」交互装置</div><div class="pc-d">Three.js + 声音可视化 · 沉浸式粒子宇宙</div></div></div>
+              <div class="p-card"><span class="pc-icon">🍬</span><div><div class="pc-t">「糖果商店」UI 概念</div><div class="pc-d">可爱风格电商界面 · 粉色治愈购物体验</div></div></div>
+              <div class="p-card"><span class="pc-icon">🎮</span><div><div class="pc-t">「掌机回忆」游戏合集</div><div class="pc-d">React + Canvas · 复古像素小游戏三部曲</div></div></div>
+            </div>
+          </div>
+
+          <!-- Panel 3: Skills -->
+          <div class="panel">
+            <div class="p-h">技能与工具</div>
+            <div class="p-tt" style="margin-bottom:8px">我擅长的领域</div>
+            <div class="skills">
+              <span class="skill">🎨 Figma</span>
+              <span class="skill">🌀 Three.js</span>
+              <span class="skill">⚛️ React</span>
+              <span class="skill">🖌 插画</span>
+              <span class="skill">✨ 动效设计</span>
+              <span class="skill">💎 品牌设计</span>
+              <span class="skill">📱 响应式开发</span>
+              <span class="skill">🧩 创意编码</span>
+            </div>
+          </div>
+
+          <!-- Panel 4: Contact -->
+          <div class="panel">
+            <div class="p-h">联系我</div>
+            <div class="p-tt" style="margin-bottom:8px">让我们一起创造</div>
+            <p class="p-t" style="margin-bottom:10px">如果你对合作、委托或 just say hi 感兴趣——</p>
+            <div class="contact-links">
+              <a href="#">✉️ hello@creator.world</a>
+              <a href="#">🐦 @luna_creates</a>
+              <a href="#">📷 instagram.com/luna.art</a>
+            </div>
+          </div>
+
+          <!-- Panel 5: Easter Egg -->
+          <div class="panel">
+            <div class="p-h">✨ 小彩蛋</div>
+            <div class="p-tt">点击按钮，收获今日份鼓励</div>
+            <p class="p-t" style="margin-bottom:10px">偶尔也需要一点小小的治愈能量 🌸</p>
+            <button class="egg-btn" id="eggBtn">💫 点我一下</button>
+            <div class="egg-msg" id="eggMsg"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Dots -->
+    <div class="psp-dots" id="dots"></div>
+
+    <!-- Brand -->
+    <div class="psp-brand">Ta・Xu</div>
+
+    <!-- Controls -->
+    <div class="psp-ctrl">
+      <div class="psp-dpad"><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="psp-acts">
+        <span class="pbtn t">△</span>
+        <span class="pbtn c">○</span>
+        <span class="pbtn x">✕</span>
+        <span class="pbtn s">□</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
+
+// ====== DOM refs ======
+const sceneEl = document.getElementById('scene');
+const pspSystem = document.getElementById('psp-system');
+const scrollWrap = document.getElementById('scrollWrap');
+const dotsEl = document.getElementById('dots');
+const arrowL = document.getElementById('arrowL');
+const arrowR = document.getElementById('arrowR');
+const returnBtn = document.getElementById('returnBtn');
+const hint = document.getElementById('hint');
+const loading = document.getElementById('loading');
+const eggBtn = document.getElementById('eggBtn');
+const eggMsg = document.getElementById('eggMsg');
+
+// ====== Dots init ======
+const totalPanels = 5;
+for (let i = 0; i < totalPanels; i++) {
+  const dot = document.createElement('span');
+  if (i === 0) dot.classList.add('active');
+  dot.dataset.idx = i;
+  dot.addEventListener('click', () => goToPanel(i));
+  dotsEl.appendChild(dot);
+}
+
+function updateDots(idx) {
+  dotsEl.querySelectorAll('span').forEach((d, i) => d.classList.toggle('active', i === idx));
+}
+
+function goToPanel(idx) {
+  const panels = scrollWrap.querySelectorAll('.panel');
+  if (!panels[idx]) return;
+  panels[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+  updateDots(idx);
+}
+
+scrollWrap.addEventListener('scroll', () => {
+  const w = scrollWrap.clientWidth;
+  if (w === 0) return;
+  const idx = Math.round(scrollWrap.scrollLeft / w);
+  updateDots(idx);
+});
+
+arrowL.addEventListener('click', () => {
+  const w = scrollWrap.clientWidth;
+  const idx = Math.round(scrollWrap.scrollLeft / w);
+  if (idx > 0) goToPanel(idx - 1);
+});
+
+arrowR.addEventListener('click', () => {
+  const w = scrollWrap.clientWidth;
+  const idx = Math.round(scrollWrap.scrollLeft / w);
+  if (idx < totalPanels - 1) goToPanel(idx + 1);
+});
+
+// Egg
+const encouragements = [
+  '你今天真棒！继续保持 ✨',
+  '世界需要你的创造力 💫',
+  '你做的每一个作品都很美 🌸',
+  '休息一下，喝杯茶 🍵',
+  '相信自己，你可以的 💪',
+  '你的存在本身就是一种艺术 🎨',
+];
+eggBtn.addEventListener('click', () => {
+  const m = encouragements[Math.floor(Math.random() * encouragements.length)];
+  eggMsg.textContent = m;
+});
+
+// ====== Return ======
+returnBtn.addEventListener('click', () => {
+  pspSystem.classList.remove('show');
+  pspSystem.style.display = 'none';
+  returnBtn.style.display = 'none';
+  hint.classList.remove('hide');
+});
+
+// ====== THREE.JS SCENE ======
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xFFD1DC);
+
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+camera.position.set(5, 3, 6);
+camera.lookAt(0, 0, 0);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.2;
+sceneEl.appendChild(renderer.domElement);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+controls.minDistance = 3;
+controls.maxDistance = 12;
+controls.target.set(0, 0.5, 0);
+controls.maxPolarAngle = Math.PI / 2.2;
+
+// ====== Lights ======
+const ambient = new THREE.AmbientLight(0xffe0e0, 0.5);
+scene.add(ambient);
+
+const hemi = new THREE.HemisphereLight(0xFFD1DC, 0xFFC3A0, 0.6);
+scene.add(hemi);
+
+const keyLight = new THREE.DirectionalLight(0xfff0e8, 1.8);
+keyLight.position.set(3, 6, 4);
+keyLight.castShadow = true;
+keyLight.shadow.mapSize.width = 1024;
+keyLight.shadow.mapSize.height = 1024;
+const d = 6;
+keyLight.shadow.camera.left = -d;
+keyLight.shadow.camera.right = d;
+keyLight.shadow.camera.top = d;
+keyLight.shadow.camera.bottom = -d;
+keyLight.shadow.camera.near = 1;
+keyLight.shadow.camera.far = 12;
+scene.add(keyLight);
+
+const fillLight = new THREE.DirectionalLight(0xffc8d0, 0.5);
+fillLight.position.set(-3, 2, 2);
+scene.add(fillLight);
+
+const rimLight = new THREE.DirectionalLight(0xffe0e8, 0.4);
+rimLight.position.set(-2, 3, -5);
+scene.add(rimLight);
+
+// ====== Room ======
+// Floor
+const floorGeo = new THREE.PlaneGeometry(12, 12);
+const floorMat = new THREE.MeshStandardMaterial({
+  color: 0xF5E0D8,
+  roughness: 0.8,
+  metalness: 0,
+});
+const floor = new THREE.Mesh(floorGeo, floorMat);
+floor.rotation.x = -Math.PI / 2;
+floor.position.y = -0.3;
+floor.receiveShadow = true;
+scene.add(floor);
+
+// Back wall
+const wallMat = new THREE.MeshStandardMaterial({
+  color: 0xF7E8E0,
+  roughness: 0.9,
+  metalness: 0,
+});
+const wall = new THREE.Mesh(new THREE.PlaneGeometry(12, 6), wallMat);
+wall.position.set(0, 2.7, -5.5);
+scene.add(wall);
+
+// ====== Table ======
+const tableMat = new THREE.MeshStandardMaterial({
+  color: 0xF0D8D0,
+  roughness: 0.7,
+  metalness: 0.05,
+});
+const tableTop = new THREE.Mesh(new THREE.BoxGeometry(3.2, 0.15, 2), tableMat);
+tableTop.position.set(0, -0.15, 0.5);
+tableTop.castShadow = true;
+tableTop.receiveShadow = true;
+scene.add(tableTop);
+
+const legMat = new THREE.MeshStandardMaterial({ color: 0xE8C8C0, roughness: 0.8 });
+for (let x of [-1.3, 1.3]) {
+  for (let z of [-0.6, 0.6]) {
+    const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.08, 0.5, 8), legMat);
+    leg.position.set(x, -0.4, 0.5 + z);
+    scene.add(leg);
+  }
+}
+
+// ====== BUILD PSP ======
+const pspGroup = new THREE.Group();
+pspGroup.position.set(0, 0.2, 0.5);
+pspGroup.rotation.x = -0.05;
+
+// Body
+const bodyMat = new THREE.MeshStandardMaterial({
+  color: 0xFFB7C5,
+  roughness: 0.3,
+  metalness: 0.1,
+});
+const body = new THREE.Mesh(new THREE.BoxGeometry(2.2, 1.25, 0.22), bodyMat);
+body.position.y = 0;
+body.castShadow = true;
+body.receiveShadow = true;
+pspGroup.add(body);
+
+// Body highlight edge
+const edgeMat = new THREE.MeshStandardMaterial({
+  color: 0xFFC8D4,
+  roughness: 0.2,
+  metalness: 0.15,
+  transparent: true,
+  opacity: 0.4,
+});
+const edge = new THREE.Mesh(new THREE.BoxGeometry(2.18, 1.23, 0.18), edgeMat);
+edge.position.y = 0;
+pspGroup.add(edge);
+
+// Screen bezel (dark border)
+const bezelMat = new THREE.MeshStandardMaterial({
+  color: 0x3A2E38,
+  roughness: 0.8,
+  metalness: 0.2,
+});
+const bezel = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.85, 0.04), bezelMat);
+bezel.position.set(0, 0.08, 0.13);
+pspGroup.add(bezel);
+
+// Screen (glowing)
+const screenMat = new THREE.MeshStandardMaterial({
+  color: 0xFFF5F0,
+  roughness: 0.1,
+  metalness: 0,
+  emissive: 0xFFE8E0,
+  emissiveIntensity: 0.08,
+});
+const screen = new THREE.Mesh(new THREE.BoxGeometry(1.35, 0.7, 0.03), screenMat);
+screen.position.set(0, 0.08, 0.15);
+pspGroup.add(screen);
+
+// Screen inner glow
+const glowMat = new THREE.MeshStandardMaterial({
+  color: 0xFFC8D4,
+  transparent: true,
+  opacity: 0.15,
+  emissive: 0xFFB7C5,
+  emissiveIntensity: 0.1,
+});
+const glow = new THREE.Mesh(new THREE.BoxGeometry(1.25, 0.6, 0.02), glowMat);
+glow.position.set(0, 0.08, 0.16);
+pspGroup.add(glow);
+
+// Speaker bar
+const spkMat = new THREE.MeshStandardMaterial({
+  color: 0xF0C8C0,
+  roughness: 0.5,
+  metalness: 0.1,
+});
+for (let i = -0.4; i <= 0.4; i += 0.25) {
+  const spk = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.015, 0.015), spkMat);
+  spk.position.set(i, 0.54, 0.12);
+  pspGroup.add(spk);
+}
+
+// D-pad
+const dpadMat = new THREE.MeshStandardMaterial({
+  color: 0xF0D0C8,
+  roughness: 0.4,
+  metalness: 0.05,
+});
+const dh = 0.12, dw = 0.04, dd = 0.025;
+// vertical bar
+const dv = new THREE.Mesh(new THREE.BoxGeometry(dw, dh, dd), dpadMat);
+dv.position.set(-0.6, -0.22, 0.12);
+pspGroup.add(dv);
+// horizontal bar
+const dhBar = new THREE.Mesh(new THREE.BoxGeometry(dh, dw, dd), dpadMat);
+dhBar.position.set(-0.6, -0.22, 0.12);
+pspGroup.add(dhBar);
+
+// Action buttons △○×□
+const btnMat = (color) => new THREE.MeshStandardMaterial({
+  color,
+  roughness: 0.3,
+  metalness: 0.05,
+});
+const btnPositions = [
+  { x: 0.65, z: 0.12, label: '△' },
+  { x: 0.78, z: 0.12, label: '○' },
+  { x: 0.52, z: 0.12, label: '✕' },
+  { x: 0.65, z: 0.25, label: '□' },
+];
+btnPositions.forEach(b => {
+  const bMat = new THREE.MeshStandardMaterial({
+    color: 0xF0D0C8,
+    roughness: 0.3,
+    metalness: 0.05,
+  });
+  const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.045, 12, 12), bMat);
+  sphere.position.set(b.x, -0.25, b.z);
+  pspGroup.add(sphere);
+});
+
+// PSP shadow
+const shadowMat = new THREE.MeshStandardMaterial({
+  color: 0xE0C0B8,
+  transparent: true,
+  opacity: 0.15,
+  roughness: 1,
+});
+const shadow = new THREE.Mesh(new THREE.CircleGeometry(1.2, 16), shadowMat);
+shadow.rotation.x = -Math.PI / 2;
+shadow.position.set(0, -0.05, 0.5);
+scene.add(shadow);
+
+scene.add(pspGroup);
+
+// ====== Floating particles ======
+const particleCount = 120;
+const particleGeo = new THREE.BufferGeometry();
+const positions = new Float32Array(particleCount * 3);
+for (let i = 0; i < particleCount * 3; i++) {
+  positions[i] = (Math.random() - 0.5) * 10;
+  if (i % 3 === 1) positions[i] = Math.random() * 5;
+}
+particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+const particleMat = new THREE.PointsMaterial({
+  color: 0xFFD0D0,
+  size: 0.04,
+  transparent: true,
+  opacity: 0.5,
+  blending: THREE.AdditiveBlending,
+  sizeAttenuation: true,
+});
+const particles = new THREE.Points(particleGeo, particleMat);
+particles.position.y = 1;
+scene.add(particles);
+
+// ====== Decorative stars (larger floating shapes) ======
+const starGroup = new THREE.Group();
+for (let i = 0; i < 8; i++) {
+  const sMat = new THREE.MeshStandardMaterial({
+    color: 0xFFD8E0,
+    transparent: true,
+    opacity: 0.15 + Math.random() * 0.15,
+    emissive: 0xFFC8D0,
+    emissiveIntensity: 0.05,
+  });
+  const size = 0.04 + Math.random() * 0.06;
+  const s = new THREE.Mesh(new THREE.SphereGeometry(size, 8, 8), sMat);
+  s.position.set((Math.random() - 0.5) * 6, Math.random() * 3 + 1, -3 + Math.random() * 4);
+  starGroup.add(s);
+}
+scene.add(starGroup);
+
+// ====== Raycaster ======
+const raycaster = new THREE.Raycaster();
+const pointer = new THREE.Vector2();
+let isEntering = false;
+
+function onPointerDown(e) {
+  if (isEntering) return;
+  const rect = renderer.domElement.getBoundingClientRect();
+  pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+  pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+  raycaster.setFromCamera(pointer, camera);
+  const intersects = raycaster.intersectObjects(pspGroup.children, true);
+  if (intersects.length > 0) {
+    enterPSP();
+  }
+}
+
+renderer.domElement.addEventListener('pointerdown', onPointerDown);
+
+function enterPSP() {
+  isEntering = true;
+  hint.classList.add('hide');
+  // Show 2D system
+  pspSystem.style.display = 'flex';
+  setTimeout(() => pspSystem.classList.add('show'), 50);
+  returnBtn.style.display = 'block';
+  setTimeout(() => { isEntering = false }, 600);
+}
+
+// ====== Resize ======
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// ====== Animation loop ======
+let time = 0;
+function animate() {
+  requestAnimationFrame(animate);
+  time += 0.01;
+
+  // Breathing PSP
+  pspGroup.position.y = 0.2 + Math.sin(time * 0.8) * 0.03;
+
+  // Float particles
+  const pos = particles.geometry.attributes.position.array;
+  for (let i = 0; i < particleCount; i++) {
+    pos[i * 3 + 1] += Math.sin(time + i) * 0.002;
+  }
+  particles.geometry.attributes.position.needsUpdate = true;
+
+  // Rotate stars slowly
+  starGroup.rotation.y += 0.002;
+  starGroup.children.forEach((c, i) => {
+    c.position.y += Math.sin(time + i) * 0.001;
+  });
+
+  controls.update();
+  renderer.render(scene, camera);
+}
+
+animate();
+
+// ====== Hide loading ======
+setTimeout(() => loading.classList.add('hide'), 800);
+
+// ====== Keyboard ======
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && pspSystem.classList.contains('show')) {
+    returnBtn.click();
+  }
+  if (e.key === 'ArrowRight' && pspSystem.classList.contains('show')) arrowR.click();
+  if (e.key === 'ArrowLeft' && pspSystem.classList.contains('show')) arrowL.click();
+});
+
+console.log('🌸 Ta・Xu PSP Room loaded! Click the PSP to enter.');
+</script>
+</body>
+</html>
