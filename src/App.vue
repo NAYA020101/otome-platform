@@ -108,6 +108,32 @@ const tr = {
   game6: { zh: '世界之外', en: 'Beyond the World' },
   game6Desc: { zh: '无限流穿越题材恋爱互动游戏。在多个平行世界中与不同命运交织。', en: 'An infinite-dimension romance. Traverse parallel worlds and intertwine with different fates.' },
 
+  gameCatCN: { zh: '国产乙女', en: 'Chinese' },
+  gameCatJP: { zh: '日本乙女', en: 'Japanese' },
+  gameCatKR: { zh: '韩国乙女', en: 'Korean' },
+  gameCatEN: { zh: '欧美乙女', en: 'Western' },
+
+  gameJP1: { zh: '薄桜鬼', en: 'Hakuoki' },
+  gameJP1Desc: { zh: '幕末背景下，女主与新选组武士们的传奇恋爱物语。', en: 'A legendary romance set in the Bakumatsu era.' },
+  gameJP2: { zh: 'DIABOLIK LOVERS', en: 'DIABOLIK LOVERS' },
+  gameJP2Desc: { zh: '吸血鬼题材暗黑系乙女游戏。危险而迷人的恋爱故事。', en: 'Dark vampire romance. Dangerous and seductive.' },
+  gameJP3: { zh: '剣が君', en: 'Ken ga Kimi' },
+  gameJP3Desc: { zh: '和风奇幻题材，江户时代背景下与武士们的宿命物语。', en: 'Japanese fantasy otome set in Edo period.' },
+
+  gameKR1: { zh: 'Mystic Messenger', en: 'Mystic Messenger' },
+  gameKR1Desc: { zh: '实时聊天式乙女游戏。在真实时间中与角色互动。', en: 'Real-time chat-based otome game.' },
+  gameKR2: { zh: 'THE SSUM', en: 'THE SSUM' },
+  gameKR2Desc: { zh: '社交模拟类乙女游戏。通过社交媒体解锁剧情。', en: 'Social simulation otome game.' },
+  gameKR3: { zh: 'Obey Me!', en: 'Obey Me!' },
+  gameKR3Desc: { zh: '恶魔兄弟题材乙女游戏。轻松搞笑的魔界日常。', en: 'Demon brothers otome. Fun and fluffy.' },
+
+  gameEN1: { zh: 'Choices', en: 'Choices: Stories You Play' },
+  gameEN1Desc: { zh: '互动叙事平台，收录大量乙女向精选故事。', en: 'Interactive story platform with romance stories.' },
+  gameEN2: { zh: 'Episode', en: 'Episode' },
+  gameEN2Desc: { zh: '移动端互动故事平台，可阅读也可创作。', en: 'Mobile interactive story platform.' },
+  gameEN3: { zh: 'Love Island', en: 'Love Island: The Game' },
+  gameEN3Desc: { zh: '恋爱综艺题材乙女游戏。夏日海岛浪漫体验。', en: 'Reality dating otome. Summer island romance.' },
+
   creatorsTagline: { zh: '每一位女性都是天生的叙事者。你的笔触，值得被看见。', en: 'Every woman is a born storyteller. Your voice deserves to be heard.' },
   creatorResource1Title: { zh: '自由创作', en: 'Write Freely' },
   creatorResource1Desc: { zh: '支持分支叙事、多结局、插画嵌入。打破线性叙事的边界。', en: 'Branching narratives, multiple endings, embedded illustrations.' },

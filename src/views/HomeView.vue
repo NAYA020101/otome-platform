@@ -4,9 +4,7 @@
     <section class="hero">
       <div class="hero-inner reveal">
         <span class="hero-label">{{ t('heroBrand') }}</span>
-        <h1 class="hero-title">
-          <span class="hero-line">{{ $slots.default ? '' : t('heroTitle') }}</span>
-        </h1>
+        <h1 class="hero-title">{{ t('heroTitle') }}</h1>
         <p class="hero-sub">{{ t('heroSubtitle') }}</p>
       </div>
     </section>
@@ -77,10 +75,10 @@ onMounted(() => {
   font-size:clamp(28px,4.5vw,52px);
   font-weight:700;
   color:var(--tx);
-  line-height:1.3;
+  line-height:1.4;
   letter-spacing:3px;
   margin-bottom:24px;
-  white-space:nowrap;
+  max-width:720px;margin-left:auto;margin-right:auto;
 }
 .en .hero-title{font-family:'Playfair Display','Noto Serif SC',serif}
 .hero-sub{font-size:clamp(14px,1.6vw,17px);color:var(--ts);line-height:1.8;letter-spacing:.5px;max-width:480px;margin-left:auto;margin-right:auto}

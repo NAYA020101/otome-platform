@@ -53,10 +53,21 @@
       <p class="pg-s">{{ t('gameSubtitle') }}</p>
     </div>
 
+    <!-- Country tabs -->
+    <div class="game-tabs reveal">
+      <button
+        v-for="ct in countryTabs"
+        :key="ct.key"
+        :class="['game-tab', { active: activeCountry === ct.key }]"
+        @click="activeCountry = ct.key"
+      >{{ t(ct.label) }}</button>
+    </div>
+
     <div class="game-grid">
-      <div v-for="(game, i) in games" :key="game.key" class="game-card">
-        <div class="game-card__img">
-          <img :src="'/card/' + game.img" :alt="t(game.key)" />
+      <div v-for="(game, i) in filteredGames" :key="game.key" class="game-card">
+        <div class="game-card__img" :class="{ 'no-img': !game.img }" :style="game.img ? '' : 'background:'+game.bg">
+          <img v-if="game.img" :src="'/card/' + game.img" :alt="t(game.key)" />
+          <span v-else class="game-card__placeholder">{{ game.initials }}</span>
         </div>
         <div class="game-card__bd">
           <h3 class="game-card__t">{{ t(game.key) }}</h3>
@@ -112,14 +123,42 @@ const filteredStories = computed(() => {
   return allStories.filter(fn)
 })
 
-const games = [
-  { key: 'game1', en: 'Love & Producer', img: '恋与制作.png' },
-  { key: 'game2', en: 'Light & Night', img: '光夜.png' },
-  { key: 'game3', en: 'Tears of Themis', img: '未定.png' },
-  { key: 'game4', en: 'Lovebrush Chronicles', img: '时空.png' },
-  { key: 'game5', en: 'Love & Deepspace', img: '恋与.png' },
-  { key: 'game6', en: 'Beyond the World', img: '世界.png' },
+const activeCountry = ref('cn')
+
+const countryTabs = [
+  { key: 'cn', label: 'gameCatCN' },
+  { key: 'jp', label: 'gameCatJP' },
+  { key: 'kr', label: 'gameCatKR' },
+  { key: 'en', label: 'gameCatEN' },
 ]
+
+const gamesByCountry = {
+  cn: [
+    { key: 'game1', en: 'Love & Producer', img: '恋与制作.png' },
+    { key: 'game2', en: 'Light & Night', img: '光夜.png' },
+    { key: 'game3', en: 'Tears of Themis', img: '未定.png' },
+    { key: 'game4', en: 'Lovebrush Chronicles', img: '时空.png' },
+    { key: 'game5', en: 'Love & Deepspace', img: '恋与.png' },
+    { key: 'game6', en: 'Beyond the World', img: '世界.png' },
+  ],
+  jp: [
+    { key: 'gameJP1', en: 'Hakuoki', bg: 'linear-gradient(135deg,#2C1810,#4A2820,#6C3830)', initials: '薄' },
+    { key: 'gameJP2', en: 'DIABOLIK LOVERS', bg: 'linear-gradient(135deg,#1A0A0A,#2D0D0D,#4A1010)', initials: 'DL' },
+    { key: 'gameJP3', en: 'Ken ga Kimi', bg: 'linear-gradient(135deg,#1A2A1A,#2A3A2A,#3A4A3A)', initials: '剣' },
+  ],
+  kr: [
+    { key: 'gameKR1', en: 'Mystic Messenger', bg: 'linear-gradient(135deg,#1A1A2E,#2A2A4E,#3A3A6E)', initials: 'MM' },
+    { key: 'gameKR2', en: 'THE SSUM', bg: 'linear-gradient(135deg,#2E1A2E,#4E2A4E,#6E3A6E)', initials: 'SS' },
+    { key: 'gameKR3', en: 'Obey Me!', bg: 'linear-gradient(135deg,#1A0A1A,#2D0D2D,#4A104A)', initials: 'OM' },
+  ],
+  en: [
+    { key: 'gameEN1', en: 'Choices: Stories You Play', bg: 'linear-gradient(135deg,#0A1A2E,#0D2D4E,#10406E)', initials: 'CH' },
+    { key: 'gameEN2', en: 'Episode', bg: 'linear-gradient(135deg,#2E1A0A,#4E2D0D,#6E4010)', initials: 'EP' },
+    { key: 'gameEN3', en: 'Love Island', bg: 'linear-gradient(135deg,#0A2E1A,#0D4E2D,#106E40)', initials: 'LI' },
+  ],
+}
+
+const filteredGames = computed(() => gamesByCountry[activeCountry.value] || gamesByCountry.cn)
 
 onMounted(() => {
   const ro = new IntersectionObserver(entries => {
@@ -165,12 +204,18 @@ onMounted(() => {
 .sc-time{font-size:10px;color:var(--tm);letter-spacing:.3px}
 
 /* Game Grid */
+.game-tabs{display:flex;gap:8px;justify-content:center;margin-bottom:32px;flex-wrap:wrap}
+.game-tab{padding:6px 20px;border:1px solid var(--bd);background:transparent;font-size:12px;color:var(--ts);cursor:pointer;font-family:inherit;transition:all var(--tr);letter-spacing:.5px}
+.game-tab:hover{border-color:var(--ts);color:var(--tx)}
+.game-tab.active{border-color:var(--tx);background:var(--tx);color:#fff}
 .game-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bd)}
 .game-card{background:var(--bg);transition:all var(--tr);display:flex;flex-direction:column}
 .game-card:hover{background:var(--cw)}
-.game-card__img{height:200px;overflow:hidden;background:var(--bg2);display:flex;align-items:center;justify-content:center}
+.game-card__img{height:200px;overflow:hidden;background:var(--bg2);display:flex;align-items:center;justify-content:center;position:relative}
 .game-card__img img{width:100%;height:100%;object-fit:cover;transition:opacity .4s}
 .game-card:hover .game-card__img img{opacity:.9}
+.game-card__img.no-img{display:flex;align-items:center;justify-content:center}
+.game-card__placeholder{font-size:36px;font-weight:700;color:rgba(255,255,255,.2);font-family:'Inter',sans-serif;letter-spacing:2px}
 .game-card__bd{padding:20px 24px 24px;flex:1;display:flex;flex-direction:column}
 .game-card__t{font-family:'Noto Serif SC','Playfair Display',serif;font-size:15px;font-weight:600;color:var(--tx);letter-spacing:.8px;margin-bottom:2px}
 .en .game-card__t{font-family:'Playfair Display','Noto Serif SC',serif}
