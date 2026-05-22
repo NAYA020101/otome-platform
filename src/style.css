@@ -16,13 +16,16 @@
   --bd: #DCD2CC;
   --accent: #8A4A42;
   --accent-dim: #B48078;
-  --ss: 0 1px 8px rgba(42,34,32,0.03);
-  --sm: 0 4px 20px rgba(42,34,32,0.05);
-  --sl: 0 8px 32px rgba(42,34,32,0.07);
+  --ss: 0 1px 4px rgba(42,34,32,0.02);
+  --sm: 0 4px 16px rgba(42,34,32,0.04);
+  --sl: 0 8px 28px rgba(42,34,32,0.06);
+  --sh: 0 12px 40px rgba(42,34,32,0.08);
   --rs: 0;
   --rm: 0;
   --rl: 0;
   --tr: 0.5s cubic-bezier(0.3, 0.5, 0.2, 1);
+  --tr-fast: 0.25s cubic-bezier(0.3, 0.5, 0.2, 1);
+  --tr-slow: 0.8s cubic-bezier(0.3, 0.5, 0.2, 1);
 }
 
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -36,10 +39,10 @@ img{max-width:100%;display:block}
 input,textarea{font-family:inherit}
 
 .btn-p{padding:14px 36px;background:var(--accent);color:var(--cw);border:none;font-size:11px;font-weight:400;letter-spacing:3px;text-transform:uppercase;transition:all var(--tr);cursor:pointer;display:inline-block;font-family:inherit}
-.btn-p:hover{background:var(--tx);transform:translateY(-1px)}
+.btn-p:hover{background:var(--tx);transform:translateY(-1px);box-shadow:var(--sm)}
 
 .btn-s{padding:14px 36px;background:transparent;color:var(--tx);border:1px solid var(--bd);font-size:11px;font-weight:400;letter-spacing:2px;text-transform:uppercase;transition:all var(--tr);cursor:pointer;font-family:inherit}
-.btn-s:hover{border-color:var(--ts);color:var(--accent)}
+.btn-s:hover{border-color:var(--ts);color:var(--accent);background:var(--cw)}
 
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s cubic-bezier(.25,.46,.45,.94)}
 .reveal.in-view{opacity:1;transform:translateY(0)}
@@ -54,3 +57,7 @@ input,textarea{font-family:inherit}
 .reveal-s>:nth-child(3){transition-delay:.2s}
 .reveal-s>:nth-child(4){transition-delay:.3s}
 .reveal-s>.in-view{opacity:1;transform:translateY(0)}
+
+/* ====== Global card hover enhancement ====== */
+.card-hover{transition:all var(--tr)}
+.card-hover:hover{box-shadow:var(--sl);transform:translateY(-2px)}
