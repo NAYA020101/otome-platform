@@ -74,6 +74,16 @@ const routes = [
     name: 'ai-inspiration',
     component: () => import('../views/ai/AiInspirationView.vue'),
   },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: () => import('../views/ProfileView.vue'),
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    component: () => import('../views/NotFound.vue'),
+  },
 ]
 
 const router = createRouter({
