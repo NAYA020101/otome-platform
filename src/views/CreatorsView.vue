@@ -237,7 +237,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.pg{max-width:1000px;margin:0 auto;padding:80px 24px 60px}
+.pg{max-width:1000px;margin:0 auto;padding:70px 24px 50px}
 
 /* ====== HERO ====== */
 .ch{text-align:center;margin-bottom:36px}

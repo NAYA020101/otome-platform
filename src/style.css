@@ -1,9 +1,9 @@
 /* =============================================================
-   她叙 Her Tale — Baroque Romantic · Ornate · Warm · Editorial
+   她叙 Her Tale — Baroque · Ornate · Elegant · Romantic
    ============================================================= */
 :root {
-  --bg: #F5EDE0;
-  --bg2: #EDE3D4;
+  --bg: #EDE3D4;
+  --bg2: #E3D7C6;
   --cw: #FFFBF5;
   --p: #C9A84C;
   --p2: #B89840;
@@ -17,7 +17,7 @@
   --accent: #6B2D3E;
   --accent-dim: #8A4A5A;
   --gold: #C9A84C;
-  --ss: 0 1px 3px rgba(42,26,20,0.03);
+  --ss: 0 1px 3px rgba(42,26,20,0.04);
   --sm: 0 3px 12px rgba(42,26,20,0.06);
   --sl: 0 6px 24px rgba(42,26,20,0.08);
   --sh: 0 10px 36px rgba(42,26,20,0.1);
@@ -36,10 +36,13 @@ button{border:none;background:none;cursor:pointer;font-family:inherit}
 img{max-width:100%;display:block}
 input,textarea{font-family:inherit}
 
+/* Baroque decorative divider */
+.baroque-divider{text-align:center;font-size:18px;color:var(--gold);letter-spacing:12px;opacity:.6;margin:24px 0;font-family:'Georgia',serif}
+
 .btn-p{padding:12px 36px;background:var(--accent);color:var(--gold);border:1px solid var(--gold);font-size:11px;font-weight:400;letter-spacing:3px;text-transform:uppercase;transition:all var(--tr);cursor:pointer;display:inline-block;font-family:inherit}
-.btn-p:hover{background:var(--gold);color:var(--tx);transform:translateY(-1px)}
+.btn-p:hover{background:var(--gold);color:var(--tx);transform:translateY(-1px);box-shadow:var(--sm)}
 .btn-s{padding:12px 36px;background:transparent;color:var(--tx);border:1px solid var(--bd);font-size:11px;font-weight:400;letter-spacing:2px;text-transform:uppercase;transition:all var(--tr);cursor:pointer;font-family:inherit}
-.btn-s:hover{border-color:var(--gold);color:var(--accent)}
+.btn-s:hover{border-color:var(--gold);color:var(--accent);background:var(--cw)}
 
 .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s cubic-bezier(.25,.46,.45,.94)}
 .reveal.in-view{opacity:1;transform:translateY(0)}

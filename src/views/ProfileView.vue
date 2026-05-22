@@ -191,7 +191,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.pg{max-width:900px;margin:0 auto;padding:90px 24px 60px}
+.pg{max-width:900px;margin:0 auto;padding:85px 24px 50px}
 .pg-bc{font-size:12px;color:var(--tm);margin-bottom:36px;letter-spacing:.3px}
 .pg-bcl{color:var(--ts);transition:color .3s}.pg-bcl:hover{color:var(--tx)}
 .pg-bs{margin:0 10px;color:var(--bd)}.pg-bcc{color:var(--tx);font-weight:500}

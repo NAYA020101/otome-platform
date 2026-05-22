@@ -129,7 +129,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.pg{max-width:960px;margin:0 auto;padding:110px 20px 80px}
+.pg{max-width:960px;margin:0 auto;padding:90px 20px 60px}
 .pg-h{text-align:center;margin-bottom:40px}
 .pg-t{font-family:'Noto Serif SC','Playfair Display',serif;font-size:clamp(24px,3vw,32px);font-weight:600;color:var(--tx);letter-spacing:2px;margin-bottom:10px}
 .en .pg-t{font-family:'Playfair Display','Noto Serif SC',serif}
