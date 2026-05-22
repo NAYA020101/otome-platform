@@ -1,10 +1,11 @@
 <template>
   <footer class="footer">
+    <div class="fw"></div>
     <div class="fi">
       <div class="fb reveal">
-        <div class="flogo">她叙</div>
-        <p class="fdesc">{{ locale==='zh' ? '她叙是一个以女性叙事为核心的乙女共创平台。以她为主角，以她的叙事为中心——由她定义，由她主导的浪漫叙事。' : 'Her Tale is an otome co-creation platform centered on women\'s narratives.' }}</p>
-        <p class="ftag">{{ locale==='zh' ? '她写故事，她做定义，她自心动' : 'She writes, she defines, she feels.' }}</p>
+        <div class="flogo">她叙 <span class="flogo-en">Her Tale</span></div>
+        <p class="fdesc">{{ locale==='zh' ? '一场专属于女性的浪漫叙事栖居地。以女性叙事、浪漫创作、温柔共生为核心，聚焦乙女文化与原创故事创作。' : 'A romantic narrative haven for women. Centered on feminine storytelling and otome culture.' }}</p>
+        <p class="ftag">{{ locale==='zh' ? '以她之名，叙她所想' : 'In her name, tell her stories.' }}</p>
       </div>
       <div class="fl reveal">
         <div class="fc">
@@ -37,13 +38,15 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.fw{height:2px;background:linear-gradient(90deg,var(--gold),var(--accent-dim),var(--gold));opacity:.4}
 .footer{background:var(--bg2);margin-top:60px}
 .fi{max-width:1000px;margin:0 auto;padding:60px 24px 40px;display:grid;grid-template-columns:1.5fr 1fr;gap:60px}
 .flogo{font-family:'Noto Serif SC',serif;font-size:22px;font-weight:600;color:var(--tx);letter-spacing:4px;margin-bottom:16px}
+.flogo-en{font-family:'Georgia',serif;font-size:14px;font-style:italic;color:var(--gold);letter-spacing:2px;margin-left:8px}
 .fdesc{font-size:13px;color:var(--ts);line-height:1.8;letter-spacing:.3px;max-width:380px;margin-bottom:14px}
-.ftag{font-family:'Noto Serif SC','Georgia',serif;font-size:13px;color:var(--tm);letter-spacing:.5px;font-style:italic}
+.ftag{font-family:'Noto Serif SC','Georgia',serif;font-size:13px;color:var(--accent);letter-spacing:.5px;font-style:italic}
 .fl{display:grid;grid-template-columns:repeat(2,1fr);gap:32px}
-.fc h4{font-size:11px;font-weight:500;color:var(--ts);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
+.fc h4{font-size:11px;font-weight:500;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
 .fc a{display:block;font-size:13px;color:var(--ts);letter-spacing:.3px;margin-bottom:8px;transition:color var(--tr)}.fc a:hover{color:var(--tx)}
 .fbot{border-top:1px solid var(--bd);padding:20px;text-align:center}
 .fbot p{font-size:11px;color:var(--tm);letter-spacing:.5px}
