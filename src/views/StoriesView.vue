@@ -70,7 +70,7 @@
         </div>
         <div class="game-card__bd">
           <h3 class="game-card__t">{{ t(game.key) }}</h3>
-          <p class="game-card__en">{{ game.en }}</p>
+          <p v-if="locale==='en'" class="game-card__en">{{ game.en }}</p>
           <p class="game-card__d">{{ t(game.key + 'Desc') }}</p>
         </div>
       </div>
@@ -166,7 +166,7 @@ const gamesByCountry = {
   kr: [
     { key: 'gameKR1', en: 'Mystic Messenger', bg: 'linear-gradient(135deg,#1A1A2E,#2A2A4E)', initials: 'MM' },
     { key: 'gameKR2', en: 'THE SSUM', bg: 'linear-gradient(135deg,#2E1A2E,#4E2A4E)', initials: 'SS' },
-    { key: 'gameKR3', en: 'Obey Me!', bg: 'linear-gradient(135deg,#1A0A1A,#2D0D2D)', initials: 'OM' },
+    { key: 'gameKR3', en: 'Obey Me!', bg: 'linear-gradient(135deg,#1A0A1A,#2D0D0D)', initials: 'OM' },
   ],
   en: [
     { key: 'gameEN1', en: 'Choices: Stories You Play', bg: 'linear-gradient(135deg,#0A1A2E,#0D2D4E)', initials: 'CH' },
