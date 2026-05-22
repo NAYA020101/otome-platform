@@ -1,26 +1,28 @@
 /* =============================================================
-   Her Tale — Design System · Refined · Minimal · Elegant
+   Her Tale — Design System · Archival · Emotional · Feminine
    ============================================================= */
 :root {
-  --bg: #F8F6F5;
-  --bg2: #F0ECEA;
-  --cw: #FFFFFF;
-  --p: #D4B8B0;
-  --p2: #C4A49C;
-  --pp: #E8D5D0;
-  --r: #D4B8B0;
-  --t: #E8D5D0;
-  --tx: #2C2422;
-  --ts: #8A7A76;
-  --tm: #B8AAA6;
-  --bd: #E0D8D4;
-  --ss: 0 2px 16px rgba(44,36,34,0.04);
-  --sm: 0 8px 32px rgba(44,36,34,0.06);
-  --sl: 0 16px 48px rgba(44,36,34,0.08);
-  --rs: 12px;
-  --rm: 20px;
-  --rl: 28px;
-  --tr: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --bg: #F5F0EC;
+  --bg2: #EDE6E0;
+  --cw: #FAF8F6;
+  --p: #C4A49C;
+  --p2: #B49088;
+  --pp: #D4C0B8;
+  --r: #B48078;
+  --t: #D8C8C0;
+  --tx: #2A2220;
+  --ts: #8A7A74;
+  --tm: #B0A29C;
+  --bd: #DCD2CC;
+  --accent: #8A4A42;
+  --accent-dim: #B48078;
+  --ss: 0 1px 8px rgba(42,34,32,0.03);
+  --sm: 0 4px 20px rgba(42,34,32,0.05);
+  --sl: 0 8px 32px rgba(42,34,32,0.07);
+  --rs: 0;
+  --rm: 0;
+  --rl: 0;
+  --tr: 0.5s cubic-bezier(0.3, 0.5, 0.2, 1);
 }
 
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -33,11 +35,11 @@ button{border:none;background:none;cursor:pointer;font-family:inherit}
 img{max-width:100%;display:block}
 input,textarea{font-family:inherit}
 
-.btn-p{padding:14px 40px;background:var(--tx);color:var(--bg);border-radius:0;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;transition:all var(--tr);cursor:pointer;border:none;display:inline-block;font-family:inherit}
-.btn-p:hover{background:#4A3A36;transform:translateY(-1px)}
+.btn-p{padding:14px 36px;background:var(--accent);color:var(--cw);border:none;font-size:11px;font-weight:400;letter-spacing:3px;text-transform:uppercase;transition:all var(--tr);cursor:pointer;display:inline-block;font-family:inherit}
+.btn-p:hover{background:var(--tx);transform:translateY(-1px)}
 
-.btn-s{padding:14px 40px;background:transparent;color:var(--tx);border:1px solid var(--bd);border-radius:0;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;transition:all var(--tr);cursor:pointer;font-family:inherit}
-.btn-s:hover{border-color:var(--ts);background:rgba(44,36,34,.02)}
+.btn-s{padding:14px 36px;background:transparent;color:var(--tx);border:1px solid var(--bd);font-size:11px;font-weight:400;letter-spacing:2px;text-transform:uppercase;transition:all var(--tr);cursor:pointer;font-family:inherit}
+.btn-s:hover{border-color:var(--ts);color:var(--accent)}
 
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s cubic-bezier(.25,.46,.45,.94)}
 .reveal.in-view{opacity:1;transform:translateY(0)}

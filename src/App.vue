@@ -264,6 +264,17 @@ const tr = {
   creatorLoginPrompt: { zh: '请先登录后开始创作', en: 'Please log in to start creating' },
   creatorMyWorks: { zh: '我的作品', en: 'My Works' },
   creatorNoWorks: { zh: '还没有作品，开始创作吧', en: 'No works yet. Start creating!' },
+
+  moodAll: { zh: '全部情绪', en: 'All Moods' },
+  moodLonging: { zh: '眷恋', en: 'Longing' },
+  moodObsession: { zh: '执念', en: 'Obsession' },
+  moodTragedy: { zh: '悲剧', en: 'Tragedy' },
+  moodComfort: { zh: '治愈', en: 'Comfort' },
+  moodDanger: { zh: '危险', en: 'Danger' },
+  moodNostalgia: { zh: '怀旧', en: 'Nostalgia' },
+  moodMelancholy: { zh: '忧郁', en: 'Melancholy' },
+  moodIntimacy: { zh: '亲密', en: 'Intimacy' },
+  moodYearning: { zh: '渴望', en: 'Yearning' },
 }
 
 const t = (key) => tr[key]?.[locale.value] || key

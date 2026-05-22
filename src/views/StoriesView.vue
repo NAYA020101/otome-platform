@@ -11,25 +11,25 @@
       <p class="pg-s">{{ t('storiesSubtitle') }}</p>
     </div>
 
-    <!-- ====== Filters ====== -->
+    <!-- Genre Filters -->
     <div class="filters reveal">
-      <button
-        v-for="f in filters"
-        :key="f.key"
+      <button v-for="f in filters" :key="f.key"
         :class="['filter-btn', { active: activeFilter === f.key }]"
-        @click="activeFilter = f.key"
-      >{{ t(f.label) }}</button>
+        @click="activeFilter = f.key">{{ t(f.label) }}</button>
     </div>
 
-    <!-- ====== Story Grid ====== -->
+    <!-- Mood Filters -->
+    <div class="mood-filters reveal">
+      <span class="mood-label">{{ locale==='zh' ? '情绪' : 'Mood' }}</span>
+      <button v-for="m in moodFilters" :key="m.key"
+        :class="['mood-btn', { active: activeMood === m.key }]"
+        @click="activeMood = m.key">{{ t(m.label) }}</button>
+    </div>
+
+    <!-- Story Grid -->
     <div class="sc-grid">
-      <router-link
-        v-for="(s, i) in filteredStories"
-        :key="s.id"
-        :to="'/stories/' + s.id"
-        class="sc"
-        :class="'reveal reveal-delay-' + Math.min((i % 4) + 1, 4)"
-      >
+      <router-link v-for="(s, i) in filteredStories" :key="s.id"
+        :to="'/stories/' + s.id" class="sc">
         <div class="sc-im" :class="'im-' + (s.colorIdx || (i % 3) + 1)">
           <span class="sc-tag">{{ t(s.tagKey) }}</span>
         </div>
@@ -37,6 +37,9 @@
           <h3 class="sc-t">{{ t(s.titleKey) }}</h3>
           <p class="sc-au">{{ t(s.authorKey) }}</p>
           <p class="sc-d">{{ t(s.descKey) }}</p>
+          <div class="sc-mood">
+            <span v-for="mk in s.moods" :key="mk" class="sc-mood-tag">{{ t(mk) }}</span>
+          </div>
           <div class="sc-meta">
             <span class="sc-cat">{{ t(s.catKey) }}</span>
             <span class="sc-time">{{ t('storyUpdated') }} {{ s.updated }}</span>
@@ -53,18 +56,14 @@
       <p class="pg-s">{{ t('gameSubtitle') }}</p>
     </div>
 
-    <!-- Country tabs -->
     <div class="game-tabs reveal">
-      <button
-        v-for="ct in countryTabs"
-        :key="ct.key"
+      <button v-for="ct in countryTabs" :key="ct.key"
         :class="['game-tab', { active: activeCountry === ct.key }]"
-        @click="activeCountry = ct.key"
-      >{{ t(ct.label) }}</button>
+        @click="activeCountry = ct.key">{{ t(ct.label) }}</button>
     </div>
 
     <div class="game-grid">
-      <div v-for="(game, i) in filteredGames" :key="game.key" class="game-card">
+      <div v-for="game in filteredGames" :key="game.key" class="game-card">
         <div class="game-card__img" :class="{ 'no-img': !game.img }" :style="game.img ? '' : 'background:'+game.bg">
           <img v-if="game.img" :src="'/card/' + game.img" :alt="t(game.key)" />
           <span v-else class="game-card__placeholder">{{ game.initials }}</span>
@@ -82,8 +81,10 @@
 <script setup>
 import { inject, computed, ref, onMounted } from 'vue'
 const t = inject('t')
+const locale = inject('locale')
 
 const activeFilter = ref('all')
+const activeMood = ref('all')
 
 const filters = [
   { key: 'all', label: 'storyFilterAll' },
@@ -96,15 +97,28 @@ const filters = [
   { key: 'healing', label: 'storyFilterHealing' },
 ]
 
+const moodFilters = [
+  { key: 'all', label: 'moodAll' },
+  { key: 'moodLonging', label: 'moodLonging' },
+  { key: 'moodObsession', label: 'moodObsession' },
+  { key: 'moodTragedy', label: 'moodTragedy' },
+  { key: 'moodComfort', label: 'moodComfort' },
+  { key: 'moodDanger', label: 'moodDanger' },
+  { key: 'moodNostalgia', label: 'moodNostalgia' },
+  { key: 'moodMelancholy', label: 'moodMelancholy' },
+  { key: 'moodIntimacy', label: 'moodIntimacy' },
+  { key: 'moodYearning', label: 'moodYearning' },
+]
+
 const allStories = [
-  { id: '1', titleKey: 'storyCard1Title', authorKey: 'storyCard1Author', tagKey: 'storyCard1Tag', descKey: 'storyCard1Desc', catKey: 'storyFilterFantasy', updated: '2026.05.20', colorIdx: 1 },
-  { id: '2', titleKey: 'storyCard2Title', authorKey: 'storyCard2Author', tagKey: 'storyCard2Tag', descKey: 'storyCard2Desc', catKey: 'storyFilterHealing', updated: '2026.05.18', colorIdx: 2 },
-  { id: '3', titleKey: 'storyCard3Title', authorKey: 'storyCard3Author', tagKey: 'storyCard3Tag', descKey: 'storyCard3Desc', catKey: 'storyFilterHistorical', updated: '2026.05.15', colorIdx: 3 },
-  { id: '4', titleKey: 'extraStory1Title', authorKey: 'extraStory1Author', tagKey: 'extraStory1Tag', descKey: 'extraStory1Desc', catKey: 'storyFilterRomance', updated: '2026.05.12', colorIdx: 1 },
-  { id: '5', titleKey: 'extraStory2Title', authorKey: 'extraStory2Author', tagKey: 'extraStory2Tag', descKey: 'extraStory2Desc', catKey: 'storyFilterFantasy', updated: '2026.05.10', colorIdx: 2 },
-  { id: '6', titleKey: 'extraStory3Title', authorKey: 'extraStory3Author', tagKey: 'extraStory3Tag', descKey: 'extraStory3Desc', catKey: 'storyFilterModern', updated: '2026.05.08', colorIdx: 3 },
-  { id: '7', titleKey: 'extraStory4Title', authorKey: 'extraStory4Author', tagKey: 'extraStory4Tag', descKey: 'extraStory4Desc', catKey: 'storyFilterModern', updated: '2026.05.05', colorIdx: 1 },
-  { id: '8', titleKey: 'extraStory5Title', authorKey: 'extraStory5Author', tagKey: 'extraStory5Tag', descKey: 'extraStory5Desc', catKey: 'storyFilterHistorical', updated: '2026.05.01', colorIdx: 2 },
+  { id: '1', titleKey: 'storyCard1Title', authorKey: 'storyCard1Author', tagKey: 'storyCard1Tag', descKey: 'storyCard1Desc', catKey: 'storyFilterFantasy', updated: '2026.05.20', colorIdx: 1, moods: ['moodLonging','moodDanger'] },
+  { id: '2', titleKey: 'storyCard2Title', authorKey: 'storyCard2Author', tagKey: 'storyCard2Tag', descKey: 'storyCard2Desc', catKey: 'storyFilterHealing', updated: '2026.05.18', colorIdx: 2, moods: ['moodComfort','moodIntimacy'] },
+  { id: '3', titleKey: 'storyCard3Title', authorKey: 'storyCard3Author', tagKey: 'storyCard3Tag', descKey: 'storyCard3Desc', catKey: 'storyFilterHistorical', updated: '2026.05.15', colorIdx: 3, moods: ['moodObsession','moodYearning'] },
+  { id: '4', titleKey: 'extraStory1Title', authorKey: 'extraStory1Author', tagKey: 'extraStory1Tag', descKey: 'extraStory1Desc', catKey: 'storyFilterRomance', updated: '2026.05.12', colorIdx: 1, moods: ['moodYearning','moodNostalgia'] },
+  { id: '5', titleKey: 'extraStory2Title', authorKey: 'extraStory2Author', tagKey: 'extraStory2Tag', descKey: 'extraStory2Desc', catKey: 'storyFilterFantasy', updated: '2026.05.10', colorIdx: 2, moods: ['moodLonging','moodMelancholy'] },
+  { id: '6', titleKey: 'extraStory3Title', authorKey: 'extraStory3Author', tagKey: 'extraStory3Tag', descKey: 'extraStory3Desc', catKey: 'storyFilterModern', updated: '2026.05.08', colorIdx: 3, moods: ['moodNostalgia','moodComfort'] },
+  { id: '7', titleKey: 'extraStory4Title', authorKey: 'extraStory4Author', tagKey: 'extraStory4Tag', descKey: 'extraStory4Desc', catKey: 'storyFilterModern', updated: '2026.05.05', colorIdx: 1, moods: ['moodMelancholy','moodIntimacy'] },
+  { id: '8', titleKey: 'extraStory5Title', authorKey: 'extraStory5Author', tagKey: 'extraStory5Tag', descKey: 'extraStory5Desc', catKey: 'storyFilterHistorical', updated: '2026.05.01', colorIdx: 2, moods: ['moodTragedy','moodObsession'] },
 ]
 
 const filterMap = {
@@ -119,8 +133,11 @@ const filterMap = {
 }
 
 const filteredStories = computed(() => {
-  const fn = filterMap[activeFilter.value] || filterMap.all
-  return allStories.filter(fn)
+  let stories = allStories.filter(filterMap[activeFilter.value] || filterMap.all)
+  if (activeMood.value !== 'all') {
+    stories = stories.filter(s => s.moods.includes(activeMood.value))
+  }
+  return stories
 })
 
 const activeCountry = ref('cn')
@@ -142,19 +159,19 @@ const gamesByCountry = {
     { key: 'game6', en: 'Beyond the World', img: '世界.png' },
   ],
   jp: [
-    { key: 'gameJP1', en: 'Hakuoki', bg: 'linear-gradient(135deg,#2C1810,#4A2820,#6C3830)', initials: '薄' },
-    { key: 'gameJP2', en: 'DIABOLIK LOVERS', bg: 'linear-gradient(135deg,#1A0A0A,#2D0D0D,#4A1010)', initials: 'DL' },
-    { key: 'gameJP3', en: 'Ken ga Kimi', bg: 'linear-gradient(135deg,#1A2A1A,#2A3A2A,#3A4A3A)', initials: '剣' },
+    { key: 'gameJP1', en: 'Hakuoki', bg: 'linear-gradient(135deg,#2C1810,#4A2820)', initials: '薄' },
+    { key: 'gameJP2', en: 'DIABOLIK LOVERS', bg: 'linear-gradient(135deg,#1A0A0A,#2D0D0D)', initials: 'DL' },
+    { key: 'gameJP3', en: 'Ken ga Kimi', bg: 'linear-gradient(135deg,#1A2A1A,#2A3A2A)', initials: '剣' },
   ],
   kr: [
-    { key: 'gameKR1', en: 'Mystic Messenger', bg: 'linear-gradient(135deg,#1A1A2E,#2A2A4E,#3A3A6E)', initials: 'MM' },
-    { key: 'gameKR2', en: 'THE SSUM', bg: 'linear-gradient(135deg,#2E1A2E,#4E2A4E,#6E3A6E)', initials: 'SS' },
-    { key: 'gameKR3', en: 'Obey Me!', bg: 'linear-gradient(135deg,#1A0A1A,#2D0D2D,#4A104A)', initials: 'OM' },
+    { key: 'gameKR1', en: 'Mystic Messenger', bg: 'linear-gradient(135deg,#1A1A2E,#2A2A4E)', initials: 'MM' },
+    { key: 'gameKR2', en: 'THE SSUM', bg: 'linear-gradient(135deg,#2E1A2E,#4E2A4E)', initials: 'SS' },
+    { key: 'gameKR3', en: 'Obey Me!', bg: 'linear-gradient(135deg,#1A0A1A,#2D0D2D)', initials: 'OM' },
   ],
   en: [
-    { key: 'gameEN1', en: 'Choices: Stories You Play', bg: 'linear-gradient(135deg,#0A1A2E,#0D2D4E,#10406E)', initials: 'CH' },
-    { key: 'gameEN2', en: 'Episode', bg: 'linear-gradient(135deg,#2E1A0A,#4E2D0D,#6E4010)', initials: 'EP' },
-    { key: 'gameEN3', en: 'Love Island', bg: 'linear-gradient(135deg,#0A2E1A,#0D4E2D,#106E40)', initials: 'LI' },
+    { key: 'gameEN1', en: 'Choices: Stories You Play', bg: 'linear-gradient(135deg,#0A1A2E,#0D2D4E)', initials: 'CH' },
+    { key: 'gameEN2', en: 'Episode', bg: 'linear-gradient(135deg,#2E1A0A,#4E2D0D)', initials: 'EP' },
+    { key: 'gameEN3', en: 'Love Island', bg: 'linear-gradient(135deg,#0A2E1A,#0D4E2D)', initials: 'LI' },
   ],
 }
 
@@ -179,26 +196,35 @@ onMounted(() => {
 .en .pg-t{font-family:'Playfair Display','Noto Serif SC',serif}
 .pg-s{font-size:14px;color:var(--ts);letter-spacing:.5px;max-width:440px;margin:0 auto;line-height:1.8}
 
-/* Filters */
-.filters{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:40px}
+/* Genre Filters */
+.filters{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:16px}
 .filter-btn{padding:6px 16px;border:1px solid var(--bd);background:transparent;font-size:12px;color:var(--ts);cursor:pointer;font-family:inherit;transition:all var(--tr);letter-spacing:.3px}
 .filter-btn:hover{border-color:var(--ts);color:var(--tx)}
-.filter-btn.active{border-color:var(--tx);background:var(--tx);color:#fff}
+.filter-btn.active{border-color:var(--accent);background:transparent;color:var(--accent)}
+
+/* Mood Filters */
+.mood-filters{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:36px;align-items:center}
+.mood-label{font-size:10px;color:var(--tm);letter-spacing:2px;text-transform:uppercase;margin-right:8px}
+.mood-btn{padding:4px 14px;border:none;background:var(--bg2);font-size:11px;color:var(--ts);cursor:pointer;font-family:inherit;transition:all var(--tr);letter-spacing:.5px}
+.mood-btn:hover{background:var(--t);color:var(--tx)}
+.mood-btn.active{background:var(--accent);color:var(--cw)}
 
 /* Story Cards */
 .sc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bd)}
 .sc{background:var(--bg);padding:28px 24px 24px;transition:all var(--tr);display:flex;flex-direction:column}
 .sc:hover{background:var(--cw)}
 .sc-im{height:130px;display:flex;align-items:flex-start;padding:14px;margin:-28px -24px 20px;position:relative}
-.im-1{background:linear-gradient(135deg,#F0ECEA,var(--t))}
-.im-2{background:linear-gradient(135deg,#F0ECEA,#E0D0CC)}
-.im-3{background:linear-gradient(135deg,#F0ECEA,var(--p))}
-.sc-tag{font-size:9px;font-weight:500;letter-spacing:1px;color:var(--ts);background:rgba(255,255,255,.8);padding:4px 12px;z-index:1}
+.im-1{background:linear-gradient(135deg,var(--bg2),var(--t))}
+.im-2{background:linear-gradient(135deg,var(--bg2),var(--pp))}
+.im-3{background:linear-gradient(135deg,var(--bg2),var(--p))}
+.sc-tag{font-size:9px;font-weight:500;letter-spacing:1px;color:var(--ts);background:rgba(255,255,255,.8);padding:4px 12px}
 .sc-bd{flex:1;display:flex;flex-direction:column}
 .sc-t{font-family:'Noto Serif SC','Playfair Display',serif;font-size:15px;font-weight:600;color:var(--tx);letter-spacing:.8px;margin-bottom:3px}
 .en .sc-t{font-family:'Playfair Display','Noto Serif SC',serif}
 .sc-au{font-size:11px;color:var(--tm);letter-spacing:.3px;margin-bottom:10px}
-.sc-d{font-size:12px;color:var(--ts);line-height:1.7;letter-spacing:.2px;margin-bottom:14px;flex:1}
+.sc-d{font-size:12px;color:var(--ts);line-height:1.7;letter-spacing:.2px;margin-bottom:12px;flex:1}
+.sc-mood{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}
+.sc-mood-tag{font-size:9px;padding:2px 8px;background:var(--bg2);color:var(--tm);letter-spacing:.5px}
 .sc-meta{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:10px;border-top:1px solid var(--bd)}
 .sc-cat{font-size:10px;color:var(--tm);letter-spacing:.5px}
 .sc-time{font-size:10px;color:var(--tm);letter-spacing:.3px}
@@ -207,15 +233,15 @@ onMounted(() => {
 .game-tabs{display:flex;gap:8px;justify-content:center;margin-bottom:32px;flex-wrap:wrap}
 .game-tab{padding:6px 20px;border:1px solid var(--bd);background:transparent;font-size:12px;color:var(--ts);cursor:pointer;font-family:inherit;transition:all var(--tr);letter-spacing:.5px}
 .game-tab:hover{border-color:var(--ts);color:var(--tx)}
-.game-tab.active{border-color:var(--tx);background:var(--tx);color:#fff}
+.game-tab.active{border-color:var(--accent);color:var(--accent)}
 .game-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bd)}
 .game-card{background:var(--bg);transition:all var(--tr);display:flex;flex-direction:column}
 .game-card:hover{background:var(--cw)}
-.game-card__img{height:200px;overflow:hidden;background:var(--bg2);display:flex;align-items:center;justify-content:center;position:relative}
+.game-card__img{height:200px;overflow:hidden;background:var(--bg2);display:flex;align-items:center;justify-content:center}
 .game-card__img img{width:100%;height:100%;object-fit:cover;transition:opacity .4s}
-.game-card:hover .game-card__img img{opacity:.9}
+.game-card:hover .game-card__img img{opacity:.85}
 .game-card__img.no-img{display:flex;align-items:center;justify-content:center}
-.game-card__placeholder{font-size:36px;font-weight:700;color:rgba(255,255,255,.2);font-family:'Inter',sans-serif;letter-spacing:2px}
+.game-card__placeholder{font-size:36px;font-weight:700;color:rgba(255,255,255,.15);font-family:'Inter',sans-serif;letter-spacing:2px}
 .game-card__bd{padding:20px 24px 24px;flex:1;display:flex;flex-direction:column}
 .game-card__t{font-family:'Noto Serif SC','Playfair Display',serif;font-size:15px;font-weight:600;color:var(--tx);letter-spacing:.8px;margin-bottom:2px}
 .en .game-card__t{font-family:'Playfair Display','Noto Serif SC',serif}
@@ -229,10 +255,10 @@ onMounted(() => {
 }
 @media(max-width:640px){
   .sc-grid{grid-template-columns:1fr}
-  .game-grid{grid-template-columns:1fr;max-width:400px;margin-left:auto;margin-right:auto}
-  .game-card__img{height:180px}
+  .game-grid{grid-template-columns:1fr;max-width:400px;margin:0 auto}
   .pg{padding:32px 16px 60px}
-  .filters{gap:6px;margin-bottom:28px}
+  .mood-filters{gap:4px}
+  .mood-btn{padding:3px 10px;font-size:10px}
   .filter-btn{padding:5px 12px;font-size:11px}
 }
 </style>
