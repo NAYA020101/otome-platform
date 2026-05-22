@@ -1,26 +1,24 @@
 /* =============================================================
-   她叙 Her Tale — Baroque · Gold · Courtly · Romantic
+   她叙 Her Tale — Baroque Clair · Light Gold · Elegant
    ============================================================= */
 :root {
-  --bg: #EDE3D4;
-  --bg2: #E0D4C2;
-  --cw: #FFFBF5;
-  --gold: #C9A84C;
-  --gold-dim: #B89840;
-  --gold-light: #E0C870;
-  --accent: #6B2D3E;
-  --accent-dim: #8A4A5A;
-  --green: #2A3A2A;
-  --green-dim: #3A4A3A;
-  --ivory: #F5EDE0;
-  --tx: #2A1A14;
-  --ts: #7A6050;
-  --tm: #B09888;
-  --bd: #C4B098;
-  --ss: 0 1px 3px rgba(42,26,20,0.04);
-  --sm: 0 3px 12px rgba(42,26,20,0.06);
-  --sl: 0 6px 24px rgba(42,26,20,0.08);
-  --sh: 0 10px 36px rgba(42,26,20,0.1);
+  --bg: #FBF7F0;
+  --bg2: #F5EFE6;
+  --cw: #FFFCF8;
+  --gold: #D4C08C;
+  --gold-dim: #C4B078;
+  --gold-light: #E8D8A8;
+  --accent: #C49A9A;
+  --accent-dim: #D4B0B0;
+  --green: #D0C8B8;
+  --tx: #3A2A22;
+  --ts: #8A7A6A;
+  --tm: #B8A898;
+  --bd: #E0D4C4;
+  --ss: 0 1px 3px rgba(58,42,34,0.03);
+  --sm: 0 3px 12px rgba(58,42,34,0.05);
+  --sl: 0 6px 24px rgba(58,42,34,0.07);
+  --sh: 0 10px 36px rgba(58,42,34,0.09);
   --rs: 4px;
   --rm: 8px;
   --rl: 12px;
@@ -30,21 +28,16 @@
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
 body{font-family:'Noto Serif SC','Georgia','Inter',system-ui,sans-serif;background:var(--bg);color:var(--tx);line-height:1.8;overflow-x:hidden}
-::selection{background:var(--accent);color:var(--gold-light)}
+::selection{background:var(--accent);color:var(--cw)}
 a{text-decoration:none;color:inherit}
 button{border:none;background:none;cursor:pointer;font-family:inherit}
 img{max-width:100%;display:block}
 input,textarea{font-family:inherit}
 
-/* Baroque decorative elements */
-.baroque-divider{text-align:center;font-size:14px;color:var(--gold);letter-spacing:8px;opacity:.5;margin:20px 0;font-family:'Georgia',serif}
-.baroque-border{border:1px solid var(--gold);position:relative}
-.baroque-border::before{content:'';position:absolute;top:-3px;left:-3px;right:-3px;bottom:-3px;border:1px solid rgba(201,168,76,.3);pointer-events:none}
-
-.btn-gold{padding:14px 40px;background:var(--accent);color:var(--gold-light);border:1px solid var(--gold);font-size:11px;font-weight:400;letter-spacing:3px;text-transform:uppercase;transition:all var(--tr);cursor:pointer;display:inline-block;font-family:inherit;border-radius:var(--rs);box-shadow:0 2px 8px rgba(107,45,62,.2)}
-.btn-gold:hover{background:var(--gold);color:var(--tx);transform:translateY(-2px);box-shadow:0 4px 16px rgba(201,168,76,.3);border-color:var(--gold-light)}
-.btn-outline{padding:14px 40px;background:transparent;color:var(--gold);border:1px solid var(--gold);font-size:11px;font-weight:400;letter-spacing:2px;text-transform:uppercase;transition:all var(--tr);cursor:pointer;font-family:inherit;border-radius:var(--rs)}
-.btn-outline:hover{background:rgba(201,168,76,.08);color:var(--gold-light);transform:translateY(-1px);box-shadow:0 2px 12px rgba(201,168,76,.15)}
+.btn-gold{padding:12px 36px;background:var(--accent);color:var(--cw);border:1px solid var(--gold);font-size:11px;font-weight:400;letter-spacing:3px;text-transform:uppercase;transition:all var(--tr);cursor:pointer;display:inline-block;font-family:inherit;border-radius:var(--rs);box-shadow:0 2px 8px rgba(196,154,154,.2)}
+.btn-gold:hover{background:var(--gold);color:var(--tx);transform:translateY(-2px);box-shadow:0 4px 16px rgba(212,192,140,.3)}
+.btn-outline{padding:12px 36px;background:transparent;color:var(--gold-dim);border:1px solid var(--gold);font-size:11px;font-weight:400;letter-spacing:2px;text-transform:uppercase;transition:all var(--tr);cursor:pointer;font-family:inherit;border-radius:var(--rs)}
+.btn-outline:hover{background:rgba(212,192,140,.08);color:var(--tx);transform:translateY(-1px)}
 
 .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s cubic-bezier(.25,.46,.45,.94)}
 .reveal.in-view{opacity:1;transform:translateY(0)}
