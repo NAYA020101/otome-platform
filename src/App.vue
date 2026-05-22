@@ -169,6 +169,75 @@ const tr = {
   creatorDetail4Content1: { zh: '创作是孤独的，但你不必独自前行。Her Tale 创作者社群汇聚了来自各地的乙女叙事者——从资深作者到新手创作者，每个人都带着对故事的热爱。', en: 'Creation can be lonely, but you don\'t have to walk alone. The Her Tale creator community brings together otome storytellers from everywhere — from seasoned authors to new creators, all united by their love of stories.' },
   creatorDetail4Content2: { zh: '在社群中，你可以：参与定期的创作工作坊，与其他创作者交流叙事技巧；找到志同道合的合作伙伴，共同完成大型项目；获得来自读者和其他创作者的反馈与建议。', en: 'In the community you can: join regular creative workshops, exchange narrative techniques; find like-minded partners for large projects; receive feedback and suggestions from readers and fellow creators.' },
   creatorDetail4Content3: { zh: '我们定期举办创作挑战赛、主题征文活动和线上交流会。每一位叙事者都能在这里找到属于自己的位置。一起成长，一起创作。', en: 'We regularly host creative challenges, themed writing events, and online meetups. Every storyteller can find their place here. Grow together. Create together.' },
+
+  // Auth
+  authLogin: { zh: '登录', en: 'Log In' },
+  authLoginTitle: { zh: '欢迎回来', en: 'Welcome Back' },
+  authPhone: { zh: '手机号', en: 'Phone Number' },
+  authCode: { zh: '验证码', en: 'Verification Code' },
+  authGetCode: { zh: '获取验证码', en: 'Get Code' },
+  authCodeSent: { zh: '已发送', en: 'Sent' },
+  authLoginBtn: { zh: '登录', en: 'Log In' },
+  authAgreement: { zh: '我已阅读并同意', en: 'I have read and agree to' },
+  authUserAgreement: { zh: '《用户协议》', en: ' User Agreement' },
+  authPrivacy: { zh: '《隐私政策》', en: ' Privacy Policy' },
+  authAnd: { zh: '和', en: ' and ' },
+  authRequired: { zh: '请勾选同意用户协议和隐私政策', en: 'Please agree to the User Agreement and Privacy Policy' },
+  authPhoneRequired: { zh: '请输入手机号', en: 'Please enter your phone number' },
+  authCodeRequired: { zh: '请输入验证码', en: 'Please enter the verification code' },
+  authSuccess: { zh: '登录成功', en: 'Login successful' },
+  authLogout: { zh: '退出登录', en: 'Log Out' },
+
+  // Stories enrichments
+  storyFilterAll: { zh: '全部', en: 'All' },
+  storyFilterOriginal: { zh: '原创', en: 'Original' },
+  storyFilterFanwork: { zh: '同人', en: 'Fanwork' },
+  storyFilterRomance: { zh: '浪漫', en: 'Romance' },
+  storyFilterFantasy: { zh: '奇幻', en: 'Fantasy' },
+  storyFilterModern: { zh: '现代', en: 'Modern' },
+  storyFilterHistorical: { zh: '古风', en: 'Historical' },
+  storyFilterHealing: { zh: '治愈', en: 'Healing' },
+  storyUpdated: { zh: '更新于', en: 'Updated' },
+
+  // Extra story cards
+  extraStory1Title: { zh: '星与玫瑰之夜', en: 'Night of Stars & Roses' },
+  extraStory1Author: { zh: '鹿饮溪', en: 'Deer Creek' },
+  extraStory1Tag: { zh: '浪漫 · 现代', en: 'Romance · Modern' },
+  extraStory1Desc: { zh: '一场意外邂逅，一段交错命运。在星光与玫瑰之间，她找到了属于自己的答案。', en: 'A chance encounter, intertwined fates. Among stars and roses, she finds her answer.' },
+
+  extraStory2Title: { zh: '风之轨迹', en: 'Trail of Wind' },
+  extraStory2Author: { zh: '青黛', en: 'Indigo' },
+  extraStory2Tag: { zh: '奇幻 · 冒险', en: 'Fantasy · Adventure' },
+  extraStory2Desc: { zh: '穿越时空的风带来了古老的预言，四位命运之人将在旅途中相遇。', en: 'Winds through time carry ancient prophecies. Four destined souls meet on their journey.' },
+
+  extraStory3Title: { zh: '琉璃色季节', en: 'Crystal Season' },
+  extraStory3Author: { zh: '月下独白', en: 'Monologue' },
+  extraStory3Tag: { zh: '校园 · 青春', en: 'School · Youth' },
+  extraStory3Desc: { zh: '那个夏天，蝉鸣与心跳声重叠。一段关于成长与选择的青涩故事。', en: 'That summer, cicadas and heartbeats intertwined. A story of growth and choices.' },
+
+  extraStory4Title: { zh: '月下协奏曲', en: 'Moonlight Concerto' },
+  extraStory4Author: { zh: '弦音', en: 'Strings' },
+  extraStory4Tag: { zh: '都市 · 情感', en: 'Urban · Emotional' },
+  extraStory4Desc: { zh: '在繁华都市的角落里，音乐将五个截然不同的人生编织在一起。', en: 'In a corner of the bustling city, music weaves five different lives together.' },
+
+  extraStory5Title: { zh: '彼岸花', en: 'Spider Lily' },
+  extraStory5Author: { zh: '青黛', en: 'Indigo' },
+  extraStory5Tag: { zh: '古风 · 奇幻', en: 'Historical · Fantasy' },
+  extraStory5Desc: { zh: '前世今生的羁绊，跨越百年的等待。当彼岸花开时，她会记起那个约定。', en: 'A bond across lifetimes, a century of waiting. When the spider lily blooms, she will remember.' },
+
+  // Creator editor
+  creatorStartTitle: { zh: '开始创作', en: 'Start Creating' },
+  creatorStoryTitle: { zh: '作品标题', en: 'Story Title' },
+  creatorStoryTitlePlaceholder: { zh: '给你的故事取一个名字…', en: 'Name your story...' },
+  creatorContent: { zh: '创作内容', en: 'Content' },
+  creatorContentPlaceholder: { zh: '开始书写你的故事…', en: 'Start writing your story...' },
+  creatorSave: { zh: '保存草稿', en: 'Save Draft' },
+  creatorPreview: { zh: '预览', en: 'Preview' },
+  creatorPublish: { zh: '发布作品', en: 'Publish' },
+  creatorSaved: { zh: '草稿已保存', en: 'Draft saved' },
+  creatorLoginPrompt: { zh: '请先登录后开始创作', en: 'Please log in to start creating' },
+  creatorMyWorks: { zh: '我的作品', en: 'My Works' },
+  creatorNoWorks: { zh: '还没有作品，开始创作吧', en: 'No works yet. Start creating!' },
 }
 
 const t = (key) => tr[key]?.[locale.value] || key

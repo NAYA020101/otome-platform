@@ -1,29 +1,39 @@
 <template>
   <Teleport to="body">
     <div v-if="userStore.showAuthModal" class="mm" @click.self="userStore.showAuthModal = false">
-      <div class="mp ap" @click.stop>
+      <div class="mp" @click.stop>
         <button class="mc" @click="userStore.showAuthModal = false">✕</button>
-        <div class="atabs">
-          <button :class="['tab',{active:userStore.authMode==='login'}]" @click="userStore.authMode='login'">{{ t2('authLogin') }}</button>
-          <button :class="['tab',{active:userStore.authMode==='register'}]" @click="userStore.authMode='register'">{{ t2('authRegister') }}</button>
-        </div>
+        <div class="ah">{{ t('authLoginTitle') }}</div>
 
-        <form v-if="userStore.authMode==='login'" class="af" @submit.prevent="handleLogin">
-          <p class="ag">{{ locale==='zh'?'欢迎回来 🌸':'Welcome back 🌸' }}</p>
-          <div class="fld"><input v-model="loginName" type="text" :placeholder="locale==='zh'?'用户名':'Username'" required /></div>
-          <div class="fld"><input v-model="loginPwd" type="password" :placeholder="locale==='zh'?'密码':'Password'" required /></div>
-          <p v-if="loginErr" class="aerr">{{ loginErr }}</p>
-          <button type="submit" class="btn-p abtn">{{ t2('authLoginBtn') }}</button>
-        </form>
+        <form class="af" @submit.prevent="handleLogin">
+          <!-- Phone -->
+          <div class="fld">
+            <input v-model="phone" type="tel" maxlength="11" :placeholder="t('authPhone')" required
+              @input="phone=phone.replace(/\D/g,'')" />
+          </div>
 
-        <form v-else class="af" @submit.prevent="handleRegister">
-          <p class="ag">{{ locale==='zh'?'加入她叙，书写你的故事 ✨':'Join Her Tale, write your story ✨' }}</p>
-          <div class="fld"><input v-model="regName" type="text" :placeholder="locale==='zh'?'给自己取一个温柔的名字':'Choose a gentle name'" required /></div>
-          <div class="fld"><input v-model="regPwd" type="password" :placeholder="locale==='zh'?'设置密码（至少4位）':'Password (min 4 chars)'" required /></div>
-          <div class="fld"><input v-model="regPwd2" type="password" :placeholder="locale==='zh'?'再次确认密码':'Confirm password'" required /></div>
-          <p v-if="regErr" class="aerr">{{ regErr }}</p>
-          <button type="submit" class="btn-p abtn">{{ t2('authRegisterBtn') }}</button>
-          <p class="anote">{{ locale==='zh'?'注册即表示你同意遵守社区准则：互相尊重、温柔表达 🌷':'By registering you agree to our guidelines: mutual respect, gentle words 🌷' }}</p>
+          <!-- Code -->
+          <div class="fld fld-row">
+            <input v-model="code" type="text" maxlength="6" :placeholder="t('authCode')" required
+              class="fld-code" @input="code=code.replace(/\D/g,'')" />
+            <button type="button" class="btn-code" :disabled="codeSent" @click="sendCode">
+              {{ codeSent ? t('authCodeSent') : t('authGetCode') }}
+            </button>
+          </div>
+
+          <!-- Agreement -->
+          <label class="agree">
+            <input type="checkbox" v-model="agreed" />
+            <span class="agree-text">
+              {{ t('authAgreement') }}
+              <a href="#" class="agree-link" @click.prevent>{{ t('authUserAgreement') }}</a>
+              {{ t('authAnd') }}
+              <a href="#" class="agree-link" @click.prevent>{{ t('authPrivacy') }}</a>
+            </span>
+          </label>
+
+          <p v-if="err" class="aerr">{{ err }}</p>
+          <button type="submit" class="btn-submit">{{ t('authLoginBtn') }}</button>
         </form>
       </div>
     </div>
@@ -36,46 +46,81 @@ import { userStore } from '../stores/userStore.js'
 
 const t = inject('t')
 const locale = inject('locale')
-const t2 = (k) => ({authLogin:{zh:'登录',en:'Log In'},authRegister:{zh:'注册',en:'Register'},authLoginBtn:{zh:'登录',en:'Log In'},authRegisterBtn:{zh:'创建账号',en:'Create Account'}})[k]?.[locale.value]||k
 
-const loginName=ref('');const loginPwd=ref('');const loginErr=ref('')
-const regName=ref('');const regPwd=ref('');const regPwd2=ref('');const regErr=ref('')
+const phone = ref('')
+const code = ref('')
+const agreed = ref(false)
+const codeSent = ref(false)
+const err = ref('')
 
-function handleLogin(){
-  loginErr.value=''
-  const r=userStore.login(loginName.value,loginPwd.value)
-  if(r.ok){userStore.showAuthModal=false;loginName.value='';loginPwd.value=''}
-  else loginErr.value=r.msg[locale.value]
+function sendCode() {
+  if (!phone.value || phone.value.length < 11) {
+    err.value = locale.value === 'zh' ? '请输入有效的手机号' : 'Please enter a valid phone number'
+    return
+  }
+  err.value = ''
+  codeSent.value = true
+  // Simulate code send - in production would call SMS API
+  setTimeout(() => { codeSent.value = false }, 60000)
 }
-function handleRegister(){
-  regErr.value=''
-  if(regPwd.value!==regPwd2.value){regErr.value=locale.value==='zh'?'两次密码不一致':'Passwords do not match';return}
-  const r=userStore.register(regName.value,regPwd.value)
-  if(r.ok){
-    userStore.authMode='login'
-    loginName.value=regName.value;loginPwd.value=regPwd.value
-    handleLogin()
-    regName.value='';regPwd.value='';regPwd2.value=''
-  } else regErr.value=r.msg[locale.value]
+
+function handleLogin() {
+  err.value = ''
+
+  if (!phone.value || phone.value.length < 11) {
+    err.value = t('authPhoneRequired')
+    return
+  }
+  if (!code.value || code.value.length < 4) {
+    err.value = t('authCodeRequired')
+    return
+  }
+  if (!agreed.value) {
+    err.value = t('authRequired')
+    return
+  }
+
+  // Simulate login - use phone as username for demo
+  const r = userStore.loginByPhone(phone.value)
+  if (r.ok) {
+    userStore.showAuthModal = false
+    phone.value = ''
+    code.value = ''
+    agreed.value = false
+    codeSent.value = false
+  } else {
+    err.value = r.msg[locale.value]
+  }
 }
 </script>
 
 <style scoped>
-.mm{position:fixed;inset:0;background:rgba(74,68,83,.35);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:200;padding:20px;animation:fI .3s ease}
+.mm{position:fixed;inset:0;background:rgba(44,36,34,.35);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:200;padding:20px;animation:fI .3s ease}
 @keyframes fI{from{opacity:0}to{opacity:1}}
-.mp{background:#fff;border-radius:20px;width:100%;max-width:420px;padding:40px 36px;position:relative;box-shadow:0 24px 64px rgba(74,68,83,.12);animation:sU .35s cubic-bezier(.25,.46,.45,.94)}
-@keyframes sU{from{opacity:0;transform:translateY(24px)scale(.97)}to{opacity:1;transform:translateY(0)scale(1)}}
-.mc{position:absolute;top:16px;right:20px;font-size:18px;color:var(--tm);background:none;border:none;cursor:pointer;transition:color .3s;padding:4px;line-height:1}
+.mp{background:#fff;width:100%;max-width:380px;padding:40px 32px 32px;position:relative;animation:sU .35s cubic-bezier(.25,.46,.45,.94)}
+@keyframes sU{from{opacity:0;transform:translateY(20px)scale(.98)}to{opacity:1;transform:translateY(0)scale(1)}}
+.mc{position:absolute;top:14px;right:18px;font-size:16px;color:var(--tm);background:none;border:none;cursor:pointer;transition:color .3s;padding:4px;line-height:1}
 .mc:hover{color:var(--tx)}
-.atabs{display:flex;gap:8px;margin-bottom:28px}
-.tab{flex:1;padding:10px 0;border:none;background:var(--bg);border-radius:10px;font-size:14px;font-weight:500;color:var(--ts);cursor:pointer;transition:all .3s;font-family:inherit;letter-spacing:.5px}
-.tab.active{background:var(--tx);color:#fff}
-.ag{font-size:15px;color:var(--ts);margin-bottom:24px;text-align:center;letter-spacing:.3px}
-.fld{margin-bottom:16px}
-.fld input{width:100%;padding:14px 16px;border:1.5px solid var(--bd);border-radius:12px;font-size:14px;font-family:inherit;color:var(--tx);background:var(--bg);outline:none;transition:border-color .3s;box-sizing:border-box}
-.fld input:focus{border-color:var(--p)}
+
+.ah{font-size:18px;font-weight:500;color:var(--tx);margin-bottom:28px;letter-spacing:.5px;text-align:center}
+
+.af{display:flex;flex-direction:column;gap:16px}
+.fld input{width:100%;padding:12px 14px;border:1px solid var(--bd);font-size:13px;font-family:inherit;color:var(--tx);background:var(--bg);outline:none;transition:border-color .3s;box-sizing:border-box;border-radius:0}
+.fld input:focus{border-color:var(--ts)}
 .fld input::placeholder{color:var(--tm)}
-.aerr{color:var(--r);font-size:13px;margin-bottom:12px;text-align:center}
-.abtn{width:100%;margin-top:4px}
-.anote{font-size:11px;color:var(--tm);text-align:center;margin-top:20px;line-height:1.6}
+
+.fld-row{display:flex;gap:10px}
+.fld-code{flex:1;min-width:0}
+.btn-code{padding:12px 16px;background:var(--tx);color:#fff;border:none;font-size:12px;font-family:inherit;cursor:pointer;white-space:nowrap;transition:opacity .3s;border-radius:0;flex-shrink:0}
+.btn-code:disabled{opacity:.4;cursor:not-allowed}
+
+.agree{display:flex;align-items:flex-start;gap:8px;cursor:pointer;padding:4px 0}
+.agree input[type="checkbox"]{margin-top:3px;accent-color:var(--tx);width:14px;height:14px;flex-shrink:0}
+.agree-text{font-size:11px;color:var(--ts);line-height:1.5;letter-spacing:.2px}
+.agree-link{color:var(--tx);text-decoration:underline;text-underline-offset:2px}
+
+.aerr{font-size:12px;color:#C44;text-align:center;margin:0}
+
+.btn-submit{padding:12px;background:var(--tx);color:#fff;border:none;font-size:12px;font-weight:500;letter-spacing:1px;cursor:pointer;font-family:inherit;transition:background .3s;margin-top:4px;border-radius:0}
+.btn-submit:hover{background:#4A3A36}
 </style>
