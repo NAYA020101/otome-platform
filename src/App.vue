@@ -30,7 +30,7 @@ const tr = {
   navAI: { zh: 'AI 陪伴', en: 'AI' },
   navCommunity: { zh: '社区', en: 'Community' },
   navAbout: { zh: '关于', en: 'About' },
-  heroTitle: { zh: '她写故事，她做定义，她自心动', en: 'She writes, she defines, she feels.' },
+  heroTitle: { zh: '鎏金织穹，繁复成诗', en: 'Gilded skies, poetry in detail' },
   heroSubtitle: { zh: '在乙女的世界里，她永远是主角', en: 'In every story, she is the protagonist.' },
   storiesTitle: { zh: '精选剧情', en: 'Featured Stories' },
   storiesSubtitle: { zh: '每一段叙事，都是一次心灵的共振', en: 'Every narrative resonates with the soul.' },
