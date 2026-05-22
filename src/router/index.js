@@ -7,6 +7,21 @@ const routes = [
     component: () => import('../views/HomeView.vue'),
   },
   {
+    path: '/stories',
+    name: 'stories',
+    component: () => import('../views/StoriesView.vue'),
+  },
+  {
+    path: '/creators',
+    name: 'creators',
+    component: () => import('../views/CreatorsView.vue'),
+  },
+  {
+    path: '/about',
+    name: 'about',
+    component: () => import('../views/AboutView.vue'),
+  },
+  {
     path: '/community',
     name: 'community',
     component: () => import('../views/CommunityView.vue'),

@@ -8,8 +8,17 @@
         <p class="ftag">{{ t('footerTagline') }}</p>
       </div>
       <div class="fl reveal">
-        <div class="fc"><h4>{{ t('footerAbout') }}</h4><a href="#">{{ t('footerTerms') }}</a><a href="#">{{ t('footerPrivacy') }}</a><a href="#">{{ t('footerFAQ') }}</a><a href="#">{{ t('footerContact') }}</a></div>
-        <div class="fc"><h4>{{ t('navStories') }}</h4><router-link to="/community">{{ t('navCommunity') }}</router-link></div>
+        <div class="fc">
+          <h4>{{ t('navAbout') || 'About' }}</h4>
+          <router-link to="/about">{{ t('navAbout') || '关于' }}</router-link>
+          <router-link to="/stories">{{ t('navStories') }}</router-link>
+          <router-link to="/creators">{{ t('navCreate') }}</router-link>
+        </div>
+        <div class="fc">
+          <h4>{{ t('navCommunity') }}</h4>
+          <router-link to="/community">{{ t('navCommunity') }}</router-link>
+          <router-link to="/ai">{{ t('navAI') }}</router-link>
+        </div>
       </div>
     </div>
     <div class="fbot"><p>{{ t('footerCopyright') }}</p></div>

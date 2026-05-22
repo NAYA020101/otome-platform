@@ -75,6 +75,58 @@ const tr = {
   footerFAQ: { zh: '常见问题', en: 'FAQ' },
   footerContact: { zh: '联系我们', en: 'Contact' },
   footerCopyright: { zh: '© 2026 她叙 · Her Tale 保留所有权利', en: '© 2026 Her Tale · All Rights Reserved' },
+
+  navAbout: { zh: '关于', en: 'About' },
+
+  aboutTitle: { zh: '关于她叙', en: 'About Her Tale' },
+  aboutDesc1: { zh: '她叙 · Her Tale 是一个以女性叙事为核心的乙女共创平台。我们相信每一个「她」都有属于自己的故事——无论是书写、定义，还是心动。', en: 'Her Tale is an otome co-creation platform centered on women\'s narratives. We believe every "she" has her own story — to write, to define, to feel.' },
+  aboutDesc2: { zh: '平台汇聚了优质乙女游戏作品介绍、原创故事内容与创作者资源。从知名商业作品到独立创作，我们致力于为爱好者与创作者搭建相遇的桥梁。', en: 'The platform brings together otome game introductions, original stories, and creator resources. From popular titles to indie works, we bridge lovers and creators.' },
+  aboutDesc3: { zh: '「叙」意为叙述、讲述。我们希望每一个故事都能被看见，每一份创作都能被珍视。以她为主角，以她的叙事为中心——由她定义，由她主导。', en: '"Tale" means narrative. We hope every story is seen, every creation is cherished. She is the protagonist, her narrative is the center.' },
+
+  aboutMission1Title: { zh: '叙事', en: 'Narrative' },
+  aboutMission1Desc: { zh: '关注游戏叙事，挖掘作品中打动人心之处。每一个故事都有独特的力量。', en: 'Focusing on game narratives, exploring what moves the heart. Every story has unique power.' },
+  aboutMission2Title: { zh: '创作', en: 'Creation' },
+  aboutMission2Desc: { zh: '支持多元创作生态，从同人到原创，为创作者提供展示与成长的土壤。', en: 'Supporting diverse creation — from fan works to originals. A soil for creators to grow.' },
+  aboutMission3Title: { zh: '连接', en: 'Connection' },
+  aboutMission3Desc: { zh: '连接读者与创作者，连接作品与文化，构建温暖而有活力的乙女游戏社区。', en: 'Connecting readers and creators, works and culture. Building a warm otome community.' },
+
+  storiesNav: { zh: '剧情库', en: 'Stories' },
+  creatorsNav: { zh: '创作者中心', en: 'Creators' },
+
+  gameTitle: { zh: '热门乙女游戏', en: 'Popular Otome Games' },
+  gameSubtitle: { zh: '收录市面主流乙女游戏作品，一览各大热门佳作', en: 'A collection of popular otome games at a glance' },
+  game1: { zh: '恋与制作人', en: 'Love & Producer' },
+  game1Desc: { zh: '叠纸网络开发的超现实恋爱模拟游戏。玩家扮演影视制作公司负责人，与四位身份各异的男性角色展开互动。', en: 'A surreal romance sim by Papergames. Run a production company and interact with four distinct male leads.' },
+  game2: { zh: '光与夜之恋', en: 'Light & Night' },
+  game2Desc: { zh: '腾讯北极光打造的浪漫互动叙事游戏。以时尚设计师身份邂逅多位性格迥异的男主角。', en: 'A romantic interactive narrative by Tencent. Enter the fashion world and meet multiple love interests.' },
+  game3: { zh: '未定事件簿', en: 'Tears of Themis' },
+  game3Desc: { zh: '米哈游推出的律政题材恋爱推理游戏。扮演律师，在调查中与男主角们追寻真相。', en: 'A legal romance mystery by HoYoverse. Play as a lawyer seeking truth alongside your partners.' },
+  game4: { zh: '时空中的绘旅人', en: 'Lovebrush Chronicles' },
+  game4Desc: { zh: '网易出品的平行宇宙题材恋爱冒险游戏。运用绘画能力在异世界改变命运。', en: 'A parallel universe romance by NetEase. Use your painting talent to change fate in another world.' },
+  game5: { zh: '恋与深空', en: 'Love & Deepspace' },
+  game5Desc: { zh: '叠纸打造的科幻 3D 动作恋爱游戏。在未来世界探索宇宙深处的秘密。', en: 'A sci-fi 3D action romance by Papergames. Explore cosmic secrets in a futuristic world.' },
+  game6: { zh: '世界之外', en: 'Beyond the World' },
+  game6Desc: { zh: '无限流穿越题材恋爱互动游戏。在多个平行世界中与不同命运交织。', en: 'An infinite-dimension romance. Traverse parallel worlds and intertwine with different fates.' },
+
+  creatorsTagline: { zh: '每一位女性都是天生的叙事者。你的笔触，值得被看见。', en: 'Every woman is a born storyteller. Your voice deserves to be heard.' },
+  creatorResource1Title: { zh: '自由创作', en: 'Write Freely' },
+  creatorResource1Desc: { zh: '支持分支叙事、多结局、插画嵌入。打破线性叙事的边界。', en: 'Branching narratives, multiple endings, embedded illustrations.' },
+  creatorResource2Title: { zh: '版权保护', en: 'Rights Protected' },
+  creatorResource2Desc: { zh: '基于区块链的内容存证，每一份创作都有据可查，版权归属于你。', en: 'Blockchain-based verification. Every creation is traceable and yours.' },
+  creatorResource3Title: { zh: '读者共创', en: 'Co-create' },
+  creatorResource3Desc: { zh: '开放读者参与剧情走向投票、角色设定提案，让叙事成为集体实验。', en: 'Let readers vote on plot directions. Make storytelling collective.' },
+  creatorResource4Title: { zh: '创作联系', en: 'Connect' },
+  creatorResource4Desc: { zh: '加入她叙创作者社群，与志同道合的叙事者一起成长、交流、合作。', en: 'Join the Her Tale creator community to grow and collaborate.' },
+
+  creatorTipsTitle: { zh: '创作灵感', en: 'Creative Tips' },
+  creatorTip1Title: { zh: '塑造令人心动的角色', en: 'Crafting Compelling Characters' },
+  creatorTip1Desc: { zh: '角色的魅力是故事的核心。深入了解角色背景故事的构建方法，让角色拥有真实的情感层次。', en: 'Characters are the heart of story. Learn to build layered, emotionally real characters.' },
+  creatorTip2Title: { zh: '叙事结构的艺术', en: 'The Art of Narrative Structure' },
+  creatorTip2Desc: { zh: '分支叙事、好感度系统、多结局设计——探索乙女游戏独特的叙事机制。', en: 'Branching narratives, affection systems, multiple endings — explore otome game narrative mechanics.' },
+  creatorTip3Title: { zh: '视觉与音乐的力量', en: 'The Power of Visuals & Music' },
+  creatorTip3Desc: { zh: '美术风格与音乐配乐决定了游戏的氛围与情感基调。了解如何增强故事的情感表达。', en: 'Art style and music set the emotional tone. Learn to amplify your story\'s emotional impact.' },
+
+  aboutLink: { zh: '了解更多关于本站 →', en: 'Learn more about us →' },
 }
 
 const t = (key) => tr[key]?.[locale.value] || key

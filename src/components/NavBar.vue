@@ -7,10 +7,11 @@
       </router-link>
       <nav class="nav-links" :class="{ open: navOpen }">
         <router-link to="/" class="nav-link" @click="navOpen=false">{{ t('navHome') }}</router-link>
-        <router-link to="/#stories" class="nav-link" @click="navOpen=false">{{ t('navStories') }}</router-link>
-        <router-link to="/#creator" class="nav-link" @click="navOpen=false">{{ t('navCreate') }}</router-link>
+        <router-link to="/stories" class="nav-link" @click="navOpen=false">{{ t('navStories') }}</router-link>
+        <router-link to="/creators" class="nav-link" @click="navOpen=false">{{ t('navCreate') }}</router-link>
         <router-link to="/ai" class="nav-link" @click="navOpen=false">{{ t('navAI') }}</router-link>
         <router-link to="/community" class="nav-link" @click="navOpen=false">{{ t('navCommunity') }}</router-link>
+        <router-link to="/about" class="nav-link" @click="navOpen=false">{{ t('navAbout') }}</router-link>
         <template v-if="userStore.currentUser">
           <button class="nav-link mob-user" @click="userStore.showProfile = true; navOpen=false">{{ userStore.currentUser.name }}</button>
         </template>
