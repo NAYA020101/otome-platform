@@ -14,16 +14,11 @@
         <router-link to="/about" class="nav-link" @click="navOpen=false">{{ t('navAbout') }}</router-link>
       </nav>
       <div class="nav-right">
+        <button class="btn-lang" @click="toggleLang">{{ locale === 'zh' ? 'EN' : '中文' }}</button>
         <router-link v-if="userStore.currentUser" to="/profile" class="nav-user">
           <span class="nav-avatar">{{ userStore.currentUser.name[0] }}</span>
         </router-link>
-        <template v-else>
-          <button class="btn-lang" @click="toggleLang">{{ locale === 'zh' ? 'EN' : '中文' }}</button>
-          <button class="btn-login" @click="openLogin">{{ t('authLogin') }}</button>
-        </template>
-        <button class="ham" :class="{active:navOpen}" @click="navOpen=!navOpen" aria-label="Menu">
-          <span></span><span></span>
-        </button>
+        <button v-else class="btn-login" @click="openLogin">{{ t('authLogin') }}</button>
       </div>
     </div>
   </header>
@@ -83,6 +78,5 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   .nav-links.open{transform:translateY(0);opacity:1;pointer-events:all}
   .nav-link{font-size:15px}
   .ham{display:flex}
-  .btn-lang{border:none;padding:4px 8px}
 }
 </style>
