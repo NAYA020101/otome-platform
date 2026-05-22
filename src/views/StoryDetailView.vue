@@ -71,18 +71,18 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.pg{max-width:720px;margin:0 auto;padding:120px 20px 100px}
-.pg-bc{font-size:13px;color:var(--tm);margin-bottom:40px;letter-spacing:.3px}
+.pg{max-width:720px;margin:0 auto;padding:140px 24px 100px}
+.pg-bc{font-size:12px;color:var(--tm);margin-bottom:48px;letter-spacing:.3px}
 .pg-bcl{color:var(--ts);transition:color .3s}.pg-bcl:hover{color:var(--tx)}
 .pg-bs{margin:0 10px;color:var(--bd)}.pg-bcc{color:var(--tx);font-weight:500}
 
-.story-header{text-align:center;margin-bottom:40px}
-.story-tag{display:inline-block;font-size:11px;font-weight:500;color:var(--ts);letter-spacing:1.5px;background:var(--bg2);padding:6px 18px;border-radius:20px;margin-bottom:20px}
-.story-title{font-family:'Noto Serif SC','Playfair Display',serif;font-size:clamp(28px,4vw,38px);font-weight:700;color:var(--tx);letter-spacing:2px;line-height:1.3;margin-bottom:12px}
+.story-header{text-align:center;margin-bottom:48px}
+.story-tag{display:inline-block;font-size:10px;font-weight:500;color:var(--ts);letter-spacing:1.5px;background:var(--bg2);padding:6px 16px;margin-bottom:24px}
+.story-title{font-family:'Noto Serif SC','Playfair Display',serif;font-size:clamp(24px,3.5vw,34px);font-weight:700;color:var(--tx);letter-spacing:2px;line-height:1.3;margin-bottom:12px}
 .en .story-title{font-family:'Playfair Display','Noto Serif SC',serif}
-.story-author{font-size:14px;color:var(--tm);letter-spacing:.5px}
+.story-author{font-size:13px;color:var(--tm);letter-spacing:.5px}
 
-.story-cover{height:240px;border-radius:20px;margin-bottom:48px;display:flex;align-items:center;justify-content:center}
+.story-cover{height:220px;margin-bottom:48px;display:flex;align-items:center;justify-content:center}
 .scv-1{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);position:relative;overflow:hidden}
 .scv-1::after{content:'✦';position:absolute;font-size:80px;color:rgba(255,255,255,.06);top:50%;left:50%;transform:translate(-50%,-50%)}
 .scv-2{background:linear-gradient(135deg,#2d1b3d,#442b5a,#5c3d7a);position:relative;overflow:hidden}

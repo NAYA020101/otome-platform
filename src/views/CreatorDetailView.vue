@@ -64,8 +64,8 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.pg{max-width:720px;margin:0 auto;padding:120px 20px 100px}
-.pg-bc{font-size:13px;color:var(--tm);margin-bottom:40px;letter-spacing:.3px}
+.pg{max-width:720px;margin:0 auto;padding:140px 24px 100px}
+.pg-bc{font-size:12px;color:var(--tm);margin-bottom:48px;letter-spacing:.3px}
 .pg-bcl{color:var(--ts);transition:color .3s}.pg-bcl:hover{color:var(--tx)}
 .pg-bs{margin:0 10px;color:var(--bd)}.pg-bcc{color:var(--tx);font-weight:500}
 
