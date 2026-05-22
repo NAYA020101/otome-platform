@@ -14,11 +14,11 @@
 
     <!-- ====== Resources ====== -->
     <div class="rc-grid reveal-s">
-      <div v-for="(r, i) in resources" :key="i" class="rc-card">
+      <router-link v-for="(r, i) in resources" :key="i" :to="'/creators/'+(i+1)" class="rc-card">
         <div class="rc-icon" :class="'ricon-'+i"></div>
         <h3 class="rc-t">{{ t(r.titleKey) }}</h3>
         <p class="rc-d">{{ t(r.descKey) }}</p>
-      </div>
+      </router-link>
     </div>
   </div>
 

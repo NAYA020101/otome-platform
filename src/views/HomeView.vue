@@ -63,7 +63,7 @@ onMounted(() => {
 /* ====== HERO ====== */
 .hz{min-height:80vh;display:flex;align-items:center;justify-content:center;padding:120px 0 60px}
 .hz-inner{text-align:center;max-width:660px;width:100%}
-.hz-label{display:inline-block;font-family:'Playfair Display',serif;font-size:12px;font-weight:400;color:var(--p2);letter-spacing:4px;text-transform:uppercase;margin-bottom:20px}
+.hz-label{display:inline-block;font-family:'Inter',sans-serif;font-size:11px;font-weight:500;color:var(--p2);letter-spacing:6px;text-transform:uppercase;margin-bottom:20px}
 .en .hz-label{font-style:italic}
 .hz-title{font-family:'Noto Serif SC','Playfair Display',serif;font-size:clamp(30px,5vw,52px);font-weight:700;color:var(--tx);line-height:1.3;letter-spacing:2px;margin-bottom:20px}
 .en .hz-title{font-family:'Playfair Display','Noto Serif SC',serif}

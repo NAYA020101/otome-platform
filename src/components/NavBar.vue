@@ -2,8 +2,8 @@
   <header class="navbar" :class="{ scrolled }">
     <div class="nav-inner">
       <router-link to="/" class="logo">
-        <span class="logo-zh">她叙</span>
-        <span class="logo-en">Ta・Xu</span>
+        <img src="/logo.png" alt="Her Tale" class="logo-img" />
+        <span class="logo-text">Her Tale</span>
       </router-link>
       <nav class="nav-links" :class="{ open: navOpen }">
         <router-link to="/" class="nav-link" @click="navOpen=false">{{ t('navHome') }}</router-link>
@@ -53,9 +53,9 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 .navbar{position:fixed;top:0;left:0;right:0;z-index:100;transition:background var(--tr),box-shadow var(--tr);padding:0 24px}
 .navbar.scrolled{background:rgba(250,247,244,.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 1px 0 var(--bd)}
 .nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:72px}
-.logo{display:flex;align-items:baseline;gap:8px}
-.logo-zh{font-family:'Noto Serif SC',serif;font-size:24px;font-weight:700;color:var(--tx);letter-spacing:4px}
-.logo-en{font-family:'Playfair Display',serif;font-size:15px;font-weight:400;color:var(--tm);letter-spacing:3px;text-transform:uppercase}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-img{width:32px;height:32px;border-radius:8px;object-fit:cover}
+.logo-text{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--tx);letter-spacing:1px}
 .nav-links{display:flex;align-items:center;gap:36px}
 .nav-link{font-size:14px;font-weight:400;color:var(--ts);letter-spacing:.5px;transition:color var(--tr);position:relative}
 .nav-link::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;background:var(--p);transition:width var(--tr)}

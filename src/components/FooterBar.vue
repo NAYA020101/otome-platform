@@ -3,7 +3,7 @@
     <div class="fw"></div>
     <div class="fi">
       <div class="fb reveal">
-        <div class="flogo">她叙 <span class="flogo-en">Her Tale</span></div>
+        <div class="flogo"><img src="/logo.png" alt="" class="flogo-img" /> Her Tale</div>
         <p class="fdesc">{{ t('footerDesc') }}</p>
         <p class="ftag">{{ t('footerTagline') }}</p>
       </div>
@@ -42,8 +42,8 @@ onMounted(() => {
 .fw{height:4px;background:linear-gradient(90deg,var(--p),var(--r),var(--t),var(--p));background-size:300% 100%;animation:wG 6s ease-in-out infinite}
 @keyframes wG{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}
 .fi{max-width:1200px;margin:0 auto;padding:72px 24px 48px;display:grid;grid-template-columns:1.5fr 1fr;gap:80px}
-.flogo{font-family:'Noto Serif SC',serif;font-size:22px;font-weight:700;color:var(--tx);letter-spacing:3px;margin-bottom:20px}
-.flogo-en{font-family:'Playfair Display',serif;font-size:15px;font-weight:400;color:var(--tm);letter-spacing:2px;margin-left:8px}
+.flogo{display:flex;align-items:center;gap:12px;font-family:'Noto Serif SC',serif;font-size:22px;font-weight:700;color:var(--tx);letter-spacing:2px;margin-bottom:20px}
+.flogo-img{width:28px;height:28px;border-radius:6px;object-fit:cover}
 .fdesc{font-size:14px;color:var(--ts);line-height:1.8;letter-spacing:.3px;max-width:400px;margin-bottom:16px}
 .ftag{font-family:'Noto Serif SC','Playfair Display',serif;font-size:14px;font-style:italic;color:var(--tm);letter-spacing:.5px}
 .en .ftag{font-family:'Playfair Display','Noto Serif SC',serif}

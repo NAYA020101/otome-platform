@@ -14,15 +14,15 @@
 
     <!-- ====== ORIGINAL STORY CARDS ====== -->
     <div class="sc-grid reveal-s">
-      <article v-for="(s,i) in [{k:'storyCard1'},{k:'storyCard2'},{k:'storyCard3'}]" :key="s.k" class="sc">
+      <router-link v-for="(s,i) in [{k:'storyCard1',id:'1'},{k:'storyCard2',id:'2'},{k:'storyCard3',id:'3'}]" :key="s.k" :to="'/stories/'+s.id" class="sc">
         <div class="sc-im" :class="'im-'+(i+1)"><span class="sc-tag">{{ t(s.k+'Tag') }}</span></div>
         <div class="sc-bd">
           <h3 class="sc-t">{{ t(s.k+'Title') }}</h3>
           <p class="sc-au">{{ t(s.k+'Author') }}</p>
           <p class="sc-d">{{ t(s.k+'Desc') }}</p>
-          <a href="#" class="sc-lk" @click.prevent>{{ t('storyMore') }}</a>
+          <span class="sc-lk">{{ t('storyMore') }}</span>
         </div>
-      </article>
+      </router-link>
     </div>
   </div>
 
