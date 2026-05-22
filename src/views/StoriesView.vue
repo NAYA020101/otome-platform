@@ -63,11 +63,34 @@ const allStories=[
   {id:'6',titleKey:'extraStory3Title',authorKey:'extraStory3Author',tagKey:'extraStory3Tag',descKey:'extraStory3Desc',catKey:'storyFilterModern',updated:'2026.05.08',colorIdx:3,moods:['moodNostalgia','moodComfort']},
   {id:'7',titleKey:'extraStory4Title',authorKey:'extraStory4Author',tagKey:'extraStory4Tag',descKey:'extraStory4Desc',catKey:'storyFilterModern',updated:'2026.05.05',colorIdx:1,moods:['moodMelancholy','moodIntimacy']},
   {id:'8',titleKey:'extraStory5Title',authorKey:'extraStory5Author',tagKey:'extraStory5Tag',descKey:'extraStory5Desc',catKey:'storyFilterHistorical',updated:'2026.05.01',colorIdx:2,moods:['moodTragedy','moodObsession']},
+  {id:'9',titleKey:'storyCard1Title',authorKey:'storyCard2Author',tagKey:'storyCard2Tag',descKey:'storyCard2Desc',catKey:'storyFilterHealing',updated:'2026.04.28',colorIdx:3,moods:['moodComfort','moodNostalgia']},
+  {id:'10',titleKey:'extraStory2Title',authorKey:'storyCard3Author',tagKey:'storyCard3Tag',descKey:'storyCard3Desc',catKey:'storyFilterHistorical',updated:'2026.04.25',colorIdx:1,moods:['moodObsession','moodTragedy']},
 ]
-const filterMap={all:()=>true,original:s=>['1','3','4','7'].includes(s.id),fanwork:s=>['2','5','6','8'].includes(s.id),romance:s=>['1','2','4'].includes(s.id),fantasy:s=>['1','5','8'].includes(s.id),modern:s=>['2','6','7'].includes(s.id),historical:s=>['3','8'].includes(s.id),healing:s=>['2'].includes(s.id)}
+const filterMap={all:()=>true,original:s=>['1','3','4','7','9'].includes(s.id),fanwork:s=>['2','5','6','8','10'].includes(s.id),romance:s=>['1','2','4','6'].includes(s.id),fantasy:s=>['1','5','8','10'].includes(s.id),modern:s=>['2','6','7','9'].includes(s.id),historical:s=>['3','8','10'].includes(s.id),healing:s=>['2','6','9'].includes(s.id)}
 const filteredStories=computed(()=>{let s=allStories.filter(filterMap[activeFilter.value]||filterMap.all);if(activeMood.value!=='all')s=s.filter(x=>x.moods.includes(activeMood.value));return s})
 const countryTabs=[{key:'cn',label:'gameCatCN'},{key:'jp',label:'gameCatJP'},{key:'kr',label:'gameCatKR'},{key:'en',label:'gameCatEN'}]
-const gamesByCountry={cn:[{key:'game1',en:'Love & Producer',img:'恋与制作.png'},{key:'game2',en:'Light & Night',img:'光夜.png'},{key:'game3',en:'Tears of Themis',img:'未定.png'},{key:'game4',en:'Lovebrush Chronicles',img:'时空.png'},{key:'game5',en:'Love & Deepspace',img:'恋与.png'},{key:'game6',en:'Beyond the World',img:'世界.png'}],jp:[{key:'gameJP1',en:'Hakuoki',bg:'linear-gradient(135deg,#2C1810,#4A2820)',initials:'薄'},{key:'gameJP2',en:'DIABOLIK LOVERS',bg:'linear-gradient(135deg,#1A0A0A,#2D0D0D)',initials:'DL'},{key:'gameJP3',en:'Ken ga Kimi',bg:'linear-gradient(135deg,#1A2A1A,#2A3A2A)',initials:'剣'}],kr:[{key:'gameKR1',en:'Mystic Messenger',bg:'linear-gradient(135deg,#1A1A2E,#2A2A4E)',initials:'MM'},{key:'gameKR2',en:'THE SSUM',bg:'linear-gradient(135deg,#2E1A2E,#4E2A4E)',initials:'SS'},{key:'gameKR3',en:'Obey Me!',bg:'linear-gradient(135deg,#1A0A1A,#2D0D0D)',initials:'OM'}],en:[{key:'gameEN1',en:'Choices: Stories You Play',bg:'linear-gradient(135deg,#0A1A2E,#0D2D4E)',initials:'CH'},{key:'gameEN2',en:'Episode',bg:'linear-gradient(135deg,#2E1A0A,#4E2D0D)',initials:'EP'},{key:'gameEN3',en:'Love Island',bg:'linear-gradient(135deg,#0A2E1A,#0D4E2D)',initials:'LI'}]}
+const gamesByCountry={cn:[
+  {key:'game1',en:'Love & Producer',img:'恋与制作.png'},
+  {key:'game2',en:'Light & Night',img:'光夜.png'},
+  {key:'game3',en:'Tears of Themis',img:'未定.png'},
+  {key:'game4',en:'Lovebrush Chronicles',img:'时空.png'},
+  {key:'game5',en:'Love & Deepspace',img:'恋与.png'},
+  {key:'game6',en:'Beyond the World',img:'世界.png'},
+],jp:[
+  {key:'gameJP1',en:'Hakuoki',bg:'linear-gradient(135deg,#2C1810,#4A2820)',initials:'薄'},
+  {key:'gameJP2',en:'DIABOLIK LOVERS',bg:'linear-gradient(135deg,#1A0A0A,#2D0D0D)',initials:'DL'},
+  {key:'gameJP3',en:'Ken ga Kimi',bg:'linear-gradient(135deg,#1A2A1A,#2A3A2A)',initials:'剣'},
+  {key:'gameJP4',en:'Collar×Malice',bg:'linear-gradient(135deg,#1A1A2E,#2A2A4E)',initials:'CM'},
+  {key:'gameJP5',en:'Variable Barricade',bg:'linear-gradient(135deg,#2E1A2E,#4E2A4E)',initials:'VB'},
+],kr:[
+  {key:'gameKR1',en:'Mystic Messenger',bg:'linear-gradient(135deg,#1A1A2E,#2A2A4E)',initials:'MM'},
+  {key:'gameKR2',en:'THE SSUM',bg:'linear-gradient(135deg,#2E1A2E,#4E2A4E)',initials:'SS'},
+  {key:'gameKR3',en:'Obey Me!',bg:'linear-gradient(135deg,#1A0A1A,#2D0D0D)',initials:'OM'},
+],en:[
+  {key:'gameEN1',en:'Choices: Stories You Play',bg:'linear-gradient(135deg,#0A1A2E,#0D2D4E)',initials:'CH'},
+  {key:'gameEN2',en:'Episode',bg:'linear-gradient(135deg,#2E1A0A,#4E2D0D)',initials:'EP'},
+  {key:'gameEN3',en:'Love Island',bg:'linear-gradient(135deg,#0A2E1A,#0D4E2D)',initials:'LI'},
+]}
 const filteredGames=computed(()=>gamesByCountry[activeCountry.value]||gamesByCountry.cn)
 onMounted(()=>{const ro=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in-view');ro.unobserve(e.target)}})},{threshold:.1});document.querySelectorAll('.reveal').forEach(el=>ro.observe(el))})
 </script>
@@ -80,13 +103,13 @@ onMounted(()=>{const ro=new IntersectionObserver(entries=>{entries.forEach(e=>{i
 .pg-t{font-family:'Noto Serif SC','Georgia',serif;font-size:clamp(22px,2.5vw,28px);font-weight:600;color:var(--tx);letter-spacing:2px;margin-bottom:8px}.en .pg-t{font-family:'Playfair Display','Georgia',serif}
 .pg-s{font-size:13px;color:var(--ts);letter-spacing:.5px;max-width:400px;margin:0 auto;line-height:1.6}
 .filters{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:12px}
-.filter-btn{padding:4px 12px;border:1px solid var(--bd);background:transparent;font-size:12px;color:var(--ts);cursor:pointer;font-family:inherit;transition:all var(--tr)}.filter-btn:hover{border-color:var(--ts);color:var(--tx)}.filter-btn.active{border-color:var(--accent);color:var(--accent)}
+.filter-btn{padding:4px 12px;border:1px solid var(--bd);background:transparent;font-size:12px;color:var(--ts);cursor:pointer;font-family:inherit;transition:all var(--tr)}.filter-btn:hover{border-color:var(--gold);color:var(--tx)}.filter-btn.active{border-color:var(--gold);color:var(--accent)}
 .mood-filters{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-bottom:28px;align-items:center}
 .mood-label{font-size:10px;color:var(--tm);letter-spacing:2px;margin-right:6px}
-.mood-btn{padding:3px 10px;background:var(--bg2);font-size:11px;color:var(--ts);cursor:pointer;font-family:inherit;transition:all var(--tr)}.mood-btn:hover{background:var(--t);color:var(--tx)}.mood-btn.active{background:var(--accent);color:var(--cw)}
-.sc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bd)}
-.sc{background:var(--bg);padding:20px 18px 18px;transition:all var(--tr);display:flex;flex-direction:column}.sc:hover{background:var(--cw)}
-.sc-im{height:100px;display:flex;align-items:flex-start;padding:10px;margin:-20px -18px 14px}.im-1{background:linear-gradient(135deg,var(--bg2),var(--t))}.im-2{background:linear-gradient(135deg,var(--bg2),var(--pp))}.im-3{background:linear-gradient(135deg,var(--bg2),var(--p))}
+.mood-btn{padding:3px 10px;background:var(--bg2);font-size:11px;color:var(--ts);cursor:pointer;font-family:inherit;transition:all var(--tr)}.mood-btn:hover{background:var(--gold);color:var(--cw)}.mood-btn.active{background:var(--accent);color:var(--cw)}
+.sc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--gold)}
+.sc{background:var(--cw);padding:20px 18px 18px;transition:all var(--tr);display:flex;flex-direction:column}.sc:hover{background:var(--bg);transform:translateY(-2px);box-shadow:var(--sm);z-index:1}
+.sc-im{height:100px;display:flex;align-items:flex-start;padding:10px;margin:-20px -18px 14px}.im-1{background:linear-gradient(135deg,var(--bg2),var(--gold-light))}.im-2{background:linear-gradient(135deg,var(--bg2),var(--accent-dim))}.im-3{background:linear-gradient(135deg,var(--bg2),var(--gold))}
 .sc-tag{font-size:9px;letter-spacing:1px;color:var(--ts);background:rgba(255,252,249,.85);padding:3px 8px}
 .sc-bd{flex:1;display:flex;flex-direction:column}
 .sc-t{font-family:'Noto Serif SC','Georgia',serif;font-size:13px;font-weight:600;color:var(--tx);letter-spacing:.6px;margin-bottom:2px}.en .sc-t{font-family:'Playfair Display',serif}
@@ -95,9 +118,9 @@ onMounted(()=>{const ro=new IntersectionObserver(entries=>{entries.forEach(e=>{i
 .sc-meta{display:flex;justify-content:space-between;padding-top:6px;border-top:1px solid var(--bd);margin-top:auto}
 .sc-cat{font-size:10px;color:var(--tm)}.sc-time{font-size:10px;color:var(--tm)}
 .game-tabs{display:flex;gap:6px;justify-content:center;margin-bottom:24px;flex-wrap:wrap}
-.game-tab{padding:5px 16px;border:1px solid var(--bd);background:transparent;font-size:12px;color:var(--ts);cursor:pointer;font-family:inherit;transition:all var(--tr)}.game-tab:hover{border-color:var(--ts);color:var(--tx)}.game-tab.active{border-color:var(--accent);color:var(--accent)}
-.game-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bd)}
-.game-card{background:var(--bg);transition:all var(--tr);display:flex;flex-direction:column}.game-card:hover{background:var(--cw)}
+.game-tab{padding:5px 16px;border:1px solid var(--bd);background:transparent;font-size:12px;color:var(--ts);cursor:pointer;font-family:inherit;transition:all var(--tr)}.game-tab:hover{border-color:var(--gold);color:var(--tx)}.game-tab.active{border-color:var(--gold);color:var(--accent)}
+.game-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--gold)}
+.game-card{background:var(--cw);transition:all var(--tr);display:flex;flex-direction:column}.game-card:hover{background:var(--bg);transform:translateY(-2px);box-shadow:var(--sm);z-index:1}
 .game-card__img{height:160px;overflow:hidden;background:var(--bg2);display:flex;align-items:center;justify-content:center}
 .game-card__img img{width:100%;height:100%;object-fit:cover;transition:opacity .4s}.game-card:hover .game-card__img img{opacity:.85}
 .game-card__img.no-img{display:flex;align-items:center;justify-content:center}.game-card__placeholder{font-size:28px;font-weight:700;color:rgba(255,255,255,.15)}
