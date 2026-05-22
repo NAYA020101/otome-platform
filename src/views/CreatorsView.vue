@@ -49,7 +49,7 @@
       <div class="drafts-grid"><div v-for="(w,i) in myWorks.slice(0,4)" :key="i" class="draft-card"><div class="draft-title">{{ w.title }}</div><div class="draft-meta"><span class="draft-status" :class="{pub:w.status==='已发布'}">{{ w.status }}</span><span class="draft-time">{{ new Date(w.time).toLocaleDateString().replace(/\//g,'.') }}</span></div></div></div>
     </div>
 
-    <!-- ====== EMOTION ARCHIVE ====== -->
+    <!-- Emotion Archive -->
     <div class="reveal">
       <div class="section-h"><h2 class="section-title">{{ locale==='zh' ? '情绪档案' : 'Emotion Archive' }}</h2></div>
       <div class="ea-frame">
@@ -68,10 +68,7 @@
           </div>
           <div class="ea-col">
             <div class="ea-col-h"><span class="ea-col-icon">✦</span><h3 class="ea-col-t">{{ locale==='zh' ? '情感特质' : 'Traits' }}</h3></div>
-            <div class="ea-spectrum">
-              <div class="ea-spec-h">{{ locale==='zh' ? '心境图谱' : 'Spectrum' }}</div>
-              <div class="ea-spec-bar"><div v-for="s in spectrum" :key="s.label" class="ea-spec-item" :style="{flex:s.val}"><div class="ea-spec-dot" :style="{background:s.color}"></div><span class="ea-spec-l">{{ s.label }}</span></div></div>
-            </div>
+            <div class="ea-spectrum"><div class="ea-spec-h">{{ locale==='zh' ? '心境图谱' : 'Spectrum' }}</div><div class="ea-spec-bar"><div v-for="s in spectrum" :key="s.label" class="ea-spec-item" :style="{flex:s.val}"><div class="ea-spec-dot" :style="{background:s.color}"></div><span class="ea-spec-l">{{ s.label }}</span></div></div></div>
             <div class="ea-col-tags"><span v-for="(t,i) in traitTags" :key="i" class="ea-tag" :style="{background:t.bg,color:t.fg}">{{ t.label }}</span></div>
           </div>
           <div class="ea-col">
@@ -88,36 +85,20 @@
         <div class="ea-tag-cloud"><span v-for="et in emotionTags" :key="et.key" class="ea-cloud-tag">{{ t(et.label) }}</span></div>
       </div>
     </div>
-
-    <div class="reveal">
-      <div class="section-h"><h2 class="section-title">{{ t('creatorTipsTitle') }}</h2></div>
-      <div class="tip-list"><div v-for="(tip,i) in tips" :key="i" class="tip-item"><div class="tip-num">{{ String(i+1).padStart(2,'0') }}</div><div class="tip-bd"><h3 class="tip-t">{{ t(tip.titleKey) }}</h3><p class="tip-d">{{ t(tip.descKey) }}</p></div></div></div>
-    </div>
   </div>
 </template>
 <script setup>
 import { inject,ref,onMounted } from 'vue'
 import { userStore } from '../stores/userStore.js'
 const t=inject('t');const locale=inject('locale')
-
 const storyTitle=ref('');const storyContent=ref('');const showPreview=ref(false);const savedMsg=ref('');const myWorks=ref([])
 const avatarInput=ref(null);const editName=ref('');const editBio=ref('');const avatarDataUrl=ref(null);const savedProfile=ref(false)
 const expanded=ref(null)
-
-const heartTags=[
-  {label:'眷恋',bg:'rgba(196,154,154,.15)',fg:'#8A5A5A'},{label:'思念',bg:'rgba(212,192,140,.15)',fg:'#8A7A4A'},{label:'期待',bg:'rgba(200,180,200,.15)',fg:'#6A5A7A'}
-]
-const traitTags=[
-  {label:'温柔',bg:'rgba(196,154,154,.12)',fg:'#7A5A5A'},{label:'坚韧',bg:'rgba(212,192,140,.12)',fg:'#7A6A4A'},{label:'细腻',bg:'rgba(200,180,200,.12)',fg:'#6A5A7A'},{label:'浪漫',bg:'rgba(220,200,180,.12)',fg:'#7A6A5A'}
-]
-const spectrum=[
-  {label:locale.value==='zh'?'沉静':'Calm',val:2,color:'#B09888'},{label:locale.value==='zh'?'温柔':'Gentle',val:3,color:'#C4A49C'},{label:locale.value==='zh'?'心动':'Heartfelt',val:4,color:'#D4B0B0'},{label:locale.value==='zh'?'热烈':'Passion',val:2,color:'#C49A9A'}
-]
-
+const heartTags=[{label:'眷恋',bg:'rgba(196,154,154,.15)',fg:'#8A5A5A'},{label:'思念',bg:'rgba(212,192,140,.15)',fg:'#8A7A4A'},{label:'期待',bg:'rgba(200,180,200,.15)',fg:'#6A5A7A'}]
+const traitTags=[{label:'温柔',bg:'rgba(196,154,154,.12)',fg:'#7A5A5A'},{label:'坚韧',bg:'rgba(212,192,140,.12)',fg:'#7A6A4A'},{label:'细腻',bg:'rgba(200,180,200,.12)',fg:'#6A5A7A'},{label:'浪漫',bg:'rgba(220,200,180,.12)',fg:'#7A6A5A'}]
+const spectrum=[{label:locale.value==='zh'?'沉静':'Calm',val:2,color:'#B09888'},{label:locale.value==='zh'?'温柔':'Gentle',val:3,color:'#C4A49C'},{label:locale.value==='zh'?'心动':'Heartfelt',val:4,color:'#D4B0B0'},{label:locale.value==='zh'?'热烈':'Passion',val:2,color:'#C49A9A'}]
 const resources=[{titleKey:'creatorResource1Title',descKey:'creatorResource1Desc'},{titleKey:'creatorResource2Title',descKey:'creatorResource2Desc'},{titleKey:'creatorResource3Title',descKey:'creatorResource3Desc'},{titleKey:'creatorResource4Title',descKey:'creatorResource4Desc'}]
-const tips=[{titleKey:'creatorTip1Title',descKey:'creatorTip1Desc'},{titleKey:'creatorTip2Title',descKey:'creatorTip2Desc'},{titleKey:'creatorTip3Title',descKey:'creatorTip3Desc'}]
 const emotionTags=[{key:'moodLonging'},{key:'moodObsession'},{key:'moodTragedy'},{key:'moodComfort'},{key:'moodDanger'},{key:'moodNostalgia'},{key:'moodMelancholy'},{key:'moodIntimacy'},{key:'moodYearning'}]
-
 function toggleExpand(k){expanded.value=expanded.value===k?null:k}
 function loadProfile(){if(!userStore.currentUser)return;editName.value=userStore.currentUser.name||'';editBio.value=userStore.currentUser.bio||'';avatarDataUrl.value=userStore.currentUser.avatar||null;const s=JSON.parse(localStorage.getItem('ht_drafts_'+userStore.currentUser.id)||'[]');myWorks.value=s.slice(-5).reverse()}
 function triggerAvatar(){avatarInput.value?.click()}
@@ -125,7 +106,6 @@ function handleAvatar(e){const file=e.target.files[0];if(!file)return;const r=ne
 function saveProfile(){userStore.updateProfile({name:editName.value.trim()||userStore.currentUser.name,avatar:avatarDataUrl.value,bio:editBio.value.trim()});savedProfile.value=true;setTimeout(()=>{savedProfile.value=false},2000)}
 function saveDraft(){if(!storyTitle.value&&!storyContent.value)return;const s=JSON.parse(localStorage.getItem('ht_drafts_'+userStore.currentUser.id)||'[]');s.push({title:storyTitle.value||'无题',content:storyContent.value,status:'草稿',time:Date.now()});localStorage.setItem('ht_drafts_'+userStore.currentUser.id,JSON.stringify(s));myWorks.value=s.slice(-5).reverse();savedMsg.value=t('creatorSaved');setTimeout(()=>{savedMsg.value=''},2000)}
 function publish(){if(!storyTitle.value&&!storyContent.value)return;const s=JSON.parse(localStorage.getItem('ht_drafts_'+userStore.currentUser.id)||'[]');s.push({title:storyTitle.value||'无题',content:storyContent.value,status:'已发布',time:Date.now()});localStorage.setItem('ht_drafts_'+userStore.currentUser.id,JSON.stringify(s));myWorks.value=s.slice(-5).reverse();storyTitle.value='';storyContent.value='';showPreview.value=false}
-
 onMounted(()=>{loadProfile();const ro=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in-view');ro.unobserve(e.target)}})},{threshold:.1});document.querySelectorAll('.reveal').forEach(el=>ro.observe(el))})
 </script>
 <style scoped>
@@ -193,7 +173,7 @@ onMounted(()=>{loadProfile();const ro=new IntersectionObserver(entries=>{entries
 .draft-meta{display:flex;justify-content:space-between}.draft-status{font-size:10px;padding:2px 6px;background:var(--bg2);color:var(--tm)}
 .draft-status.pub{background:var(--accent-dim);color:var(--cw)}.draft-time{font-size:10px;color:var(--tm)}
 
-/* ====== EMOTION ARCHIVE ====== */
+/* Emotion Archive */
 .ea-frame{position:relative;background:var(--cw);border:1px solid var(--gold);padding:32px 28px;margin-bottom:32px;background-image:radial-gradient(ellipse at 20% 30%,rgba(212,192,140,.04) 0%,transparent 50%),radial-gradient(ellipse at 80% 70%,rgba(196,154,154,.03) 0%,transparent 50%)}
 .ea-c{position:absolute;width:40px;height:40px;border-color:var(--gold);opacity:.35}
 .ea-c-tl{top:8px;left:8px;border-top:1.5px solid;border-left:1.5px solid}
@@ -215,14 +195,12 @@ onMounted(()=>{loadProfile();const ro=new IntersectionObserver(entries=>{entries
 @keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
 .ea-col-tags{display:flex;flex-wrap:wrap;gap:4px}
 .ea-tag{font-size:10px;padding:4px 10px;letter-spacing:.5px;border-radius:2px;display:inline-block}
-
 .ea-spectrum{background:var(--bg);padding:14px;margin-bottom:4px}
 .ea-spec-h{font-size:10px;color:var(--tm);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px}
 .ea-spec-bar{display:flex;gap:6px;align-items:flex-end;height:48px}
 .ea-spec-item{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:40px}
 .ea-spec-dot{width:20px;height:20px;border-radius:50%;transition:all var(--tr)}.ea-spec-item:hover .ea-spec-dot{transform:scale(1.3)}
 .ea-spec-l{font-size:9px;color:var(--tm);letter-spacing:.5px;white-space:nowrap}
-
 .ea-memory-card{background:var(--bg);padding:16px;cursor:pointer;transition:all var(--tr);text-align:center}
 .ea-memory-card:hover{background:var(--bg2);box-shadow:0 2px 12px rgba(212,192,140,.12)}
 .ea-memory-icon{font-size:24px;color:var(--gold);opacity:.4;margin-bottom:8px}
@@ -232,16 +210,6 @@ onMounted(()=>{loadProfile();const ro=new IntersectionObserver(entries=>{entries
 .ea-tag-cloud{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
 .ea-cloud-tag{padding:6px 16px;background:var(--bg);border:1px solid var(--bd);font-size:11px;color:var(--ts);letter-spacing:.5px;transition:all var(--tr);cursor:default}
 .ea-cloud-tag:hover{border-color:var(--gold);color:var(--accent);background:var(--cw)}
-
-/* Tips */
-.tip-list{display:flex;flex-direction:column;gap:8px;margin-bottom:32px}
-.tip-item{display:flex;gap:14px;padding:16px 18px;background:var(--cw);border:1px solid var(--bd);transition:all var(--tr);align-items:flex-start}
-.tip-item:hover{border-color:var(--gold);transform:translateY(-1px)}
-.tip-item:nth-child(1){border-left:3px solid var(--gold)}.tip-item:nth-child(2){border-left:3px solid var(--accent-dim)}.tip-item:nth-child(3){border-left:3px solid var(--accent)}
-.tip-num{font-size:14px;font-weight:300;color:var(--tm);line-height:1;flex-shrink:0;width:24px}
-.tip-bd{flex:1}
-.tip-t{font-family:'Noto Serif SC','Georgia',serif;font-size:13px;font-weight:600;color:var(--tx);letter-spacing:.5px;margin-bottom:4px}
-.tip-d{font-size:12px;color:var(--ts);line-height:1.5;letter-spacing:.3px}
 
 @media(max-width:968px){
   .profile-layout{grid-template-columns:1fr}.ea-cols{grid-template-columns:1fr}.ea-frame{padding:24px 16px}
