@@ -5,7 +5,7 @@
       <h1 class="page-title wash-in">{{ t("navChars") }}</h1>
       <p class="page-sub wash-in">{{ locale==="zh" ? "收录乙女游戏中的心动角色" : "Character Archive" }}</p>
       <div class="filter-bar wash-in">
-        <button v-for="f in filters" :key="f" :class="["tag-hand", {active: af===f}]" @click="af=f">{{ f }}</button>
+        <button v-for="f in filters" :key="f" :class="['tag-hand', {active: af===f}]" @click="af=f">{{ f }}</button>
       </div>
       <div class="char-grid wash-in-stagger">
         <div v-for="c in items" :key="c.n" class="char-card card-vintage">
