@@ -2,17 +2,82 @@
   <div class="page">
     <div class="page-inner">
       <nav class="breadcrumb wash-in"><router-link to="/">{{ t("navHome") }}</router-link><span class="sep"> / </span><span class="cur">{{ t("navWorld") }}</span></nav>
-      <h1 class="page-title wash-in">{{ t("navWorld") }}</h1>
-      <p class="page-sub wash-in">{{ locale==="zh" ? "探索乙女游戏的宏大世界观" : "Worldbuilding" }}</p>
-      <div class="world-grid wash-in-stagger">
-        <div v-for="w in worlds" :key="w.t" class="world-card card-vintage">
-          <div class="world-icon">
-            <svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="16" fill="none" stroke="#D8B4B8" stroke-width="1" opacity="0.5"/><circle cx="20" cy="20" r="6" fill="none" stroke="#D8B4B8" stroke-width="1" opacity="0.3"/></svg>
-          </div>
-          <h2 class="world-title">{{ w.t }}</h2>
-          <p class="world-desc">{{ w.d }}</p>
-          <div class="world-tags"><span v-for="tag in w.tags" :key="tag" class="tag-hand">{{ tag }}</span></div>
-        </div>
+      <h1 class="page-title wash-in">世界观</h1>
+      <p class="page-sub font-en wash-in">Otome Game Encyclopedia</p>
+      <div class="article-text wash-in">
+        <p>乙女游戏（Otome Game），源自日语「乙女ゲーム」，是以女性为主角、以攻略男性角色建立恋爱关系为核心玩法的互动叙事游戏类型。自1994年首款商业化乙女游戏《安琪莉可》问世以来，全球乙游市场已发展出涵盖现代都市、古风仙侠、西幻魔法、悬疑刑侦、校园青春、科幻未来等多题材生态体系。</p>
+        <p>本百科系统收录国产、日系、韩系、欧美四大品类乙女游戏完整档案，涵盖游戏背景、风格标签、适配受众，为玩家提供一站式入坑指南。</p>
+      </div>
+
+      <div class="deco-dash"></div>
+
+      <!-- 国产乙游 -->
+      <div class="article-text wash-in">
+        <h3>一、国产乙女游戏分类合集</h3>
+
+        <h4>1. 四大顶流国民级乙游</h4>
+        <p><strong>《恋与制作人》</strong>｜叠纸游戏<br/>【风格标签：都市异能、宿命长线、现实主义】<br/>国产现代乙游开山鼻祖，2017年上线引爆国内女性恋爱赛道。构建都市超能力世界观，以宿命羁绊、都市异能、末日主线为核心剧情。首次将Live2D立绘、全程声优配音、卡面收藏体系引入国产乙游，累计注册用户过亿，叠纸因此跻身女性向游戏头部厂商。</p>
+        <p><strong>《恋与深空》</strong>｜叠纸游戏<br/>【风格标签：3D写实、第一视角、沉浸式陪伴】<br/>国内首款3D全景写实第一视角乙游，2024年上线即登顶全球多国畅销榜。打破传统2D卡牌交互，支持近距离人脸互动、场景双人拍照、AR线下联动。高精度建模与物理引擎让角色表情、衣物质感逼近真实，主打现实陪伴感。</p>
+        <p><strong>《光与夜之恋》</strong>｜腾讯北极光工作室<br/>【风格标签：都市轻奢、时空宿命、时尚职场】<br/>都市时尚职场向卡牌乙游，2021年上线。玩家以新锐时装设计师身份扎根魔都时尚圈，宿命时空双线剧情交织。光影美术风格出圈，联动商业度稳居国乙顶端。五位男主各具深度人设，圈层传播力极强。</p>
+        <p><strong>《时空中的绘旅人》</strong>｜网易游戏<br/>【风格标签：多宇宙、诗意文笔、救赎宿命】<br/>国产多宇宙乙游，主打平行世界轮回设定。独立拆分现代现世、古风异界、西幻教廷、星际科幻四大世界观，文风诗意细腻被誉为国产乙游文笔天花板。剧情立意深刻，宿命救赎主线贯穿全篇。</p>
+        <p><strong>《未定事件簿》</strong>｜米哈游<br/>【风格标签：律政悬疑、群像温情、Live2D高精度】<br/>律政悬疑向乙游，2020年上线。结合都市探案、法理推理、单元案件剧情，Live2D动态交互精度业内顶尖。恋爱线克制细腻，主线群像剧情饱满，悬疑与温情并重。</p>
+
+        <h4>2. 古风国风专属赛道</h4>
+        <p><strong>《遇见逆水寒》</strong>｜网易游戏<br/>大宋江湖温情佛系乙游，古风画卷般的手绘意境，人情向情缘剧情治愈温暖。目前主线已完结。</p>
+        <p><strong>《掌门太忙》</strong><br/>古风仙侠门派乙游，女掌门逆袭成长主线，古风唯美养成情缘体系。已停服。</p>
+        <p><strong>《灵猫传》</strong><br/>古风市井甜系乙游，萌宠灵猫羁绊、轻恋爱剧情。已停服。</p>
+        <p><strong>《浮生忆玲珑》</strong><br/>新派古风探案甜宠乙游，秘境探案+双向甜宠恋爱，画风唯美，玩法休闲。</p>
+        <p><strong>《如鸢》</strong><br/>三国权谋女性向乙游，汉末乱世权谋底色，文风厚重悲情，古风小众高分神作。</p>
+
+        <h4>3. 小众高分国产独立乙游</h4>
+        <p><strong>《世界之外》</strong><br/>无限流悬疑惊悚乙游，副本秘境轮回，微恐怖氛围，人设张力极强，剧情反转密集，口碑天花板。</p>
+        <p><strong>《月影别墅》</strong><br/>长线吸血鬼暗黑悬疑文字乙游，血族宿命羁绊，文字体量极大，双线世界观反转叙事。</p>
+        <p><strong>《少女的王座》</strong><br/>西幻复古RPG乙游，时装换装+异世权谋，宫廷奇幻世界观完整。已停服。</p>
+        <p><strong>《某某宗女修修炼手札》</strong><br/>放置类佛系修仙乙游，开放式情缘自由度极高。</p>
+        <p><strong>《猫郎乐园》</strong><br/>Steam短篇买断制国产独立乙游，兽人治愈系，画风清新，短篇无虐。</p>
+      </div>
+
+      <div class="deco-dash"></div>
+
+      <!-- 海外乙游 -->
+      <div class="article-text wash-in">
+        <h3>二、海外乙女游戏全分类合集</h3>
+
+        <h4>（一）日本乙女游戏｜全球乙游行业鼻祖</h4>
+        <p><strong>光荣Neo Romance系列</strong><br/>
+        《安琪莉可》系列（1994）：全球首款正式商业化乙女游戏，开创乙游品类。<br/>
+        《遥远时空中》系列：平安和风穿越奇幻，式神与宿命神道题材。<br/>
+        《金色琴弦》系列：校园音乐治愈向，温柔群像经典作品。</p>
+        <p><strong>日式主机/掌机传世名作</strong><br/>
+        《薄樱鬼》系列：幕末历史悲情乙游，武士乱世题材，画风复古和风，全球出圈老牌神作。<br/>
+        《Collar×Malice》：现代警匪刑侦乙游，悬疑扫黑题材，剧情紧凑，高分现实主义。<br/>
+        《OZMAFIA!!》：暗黑童话+黑手党，哥特画风，小众氛围感神作。<br/>
+        《明治东京恋伽》：明治复古穿越奇幻，文人异世情缘。<br/>
+        《蝶之毒华之锁》：大正禁忌恋爱文字，群像人性刻画细腻。<br/>
+        《失忆症AMNESIA》：时空轮回失忆设定，入门必玩经典。</p>
+        <p><strong>日本热门乙女手游</strong><br/>
+        《イケメンIkemen美男系列》：国民级爆款合集，拆分战国/吸血鬼/幕末/王室多线IP。</p>
+
+        <h4>（二）韩国乙女游戏</h4>
+        <p><strong>《Mystic Messenger 神秘信使》</strong><br/>全球现象级聊天室互动乙游，模拟实时短信通话，沉浸陪伴感极强，韩系天花板。<br/>
+        《募恋英雄》：都市偶像刑警群像。<br/>
+        另有Steam多款短篇买断制韩式乙游，画风精致轻量化。</p>
+
+        <h4>（三）欧美西式独立乙女</h4>
+        <p>《Cinders》：暗黑童话改编文字乙游，人性抉择向。<br/>
+        《Reine des Fleurs》：欧式古典宫廷西幻。<br/>
+        欧美赛道以独立短篇买断制为主，主打中世纪、暗黑童话、王权小众题材。</p>
+      </div>
+
+      <div class="deco-dash"></div>
+
+      <!-- 时间轴 -->
+      <div class="article-text wash-in">
+        <h3>三、全球乙女游戏发展时间轴</h3>
+        <p><strong>1994</strong> — 光荣发行《安琪莉可》，首款商业化乙女游戏诞生，开辟女性向游戏赛道。</p>
+        <p><strong>2000s</strong> — 《遥远时空中》《金色琴弦》等Neo Romance系列奠定日系乙游基础。PSP平台成为乙游主要阵地，《薄樱鬼》《失忆症》等名作涌现。</p>
+        <p><strong>2010s</strong> — 移动互联网时代，国产乙游开始崛起。《恋与制作人》2017年引爆市场，创造月流水数亿的行业神话。日系乙游向NS平台迁移。</p>
+        <p><strong>2020s</strong> — 《光与夜之恋》《未定事件簿》《时空中的绘旅人》等国产乙游群雄并起。2024年《恋与深空》以3D写实技术开启新一代交互体验。全球乙游市场突破百亿规模。</p>
       </div>
     </div>
   </div>
@@ -20,22 +85,10 @@
 <script setup>
 import { inject } from "vue"
 const t = inject("t"); const locale = inject("locale")
-const worlds = [
-  {t:"Modern City", d:"Romance in the modern city.", tags:["Modern", "Romance"]},
-  {t:"Fantasy World", d:"A fantasy world of magic.", tags:["Fantasy", "Adventure"]},
-  {t:"Historical", d:"Court intrigue and romance.", tags:["Historical", "Drama"]},
-  {t:"Sci-Fi Future", d:"Love in the future.", tags:["Sci-Fi", "AI"]},
-  {t:"Campus Youth", d:"Youthful romance on campus.", tags:["Campus", "Youth"]},
-  {t:"Dark Mystery", d:"Love and mystery entwined.", tags:["Mystery", "Dark"]},
-]
 </script>
 <style scoped>
-.world-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.world-card{padding:28px 20px;text-align:center}
-.world-icon{margin-bottom:12px;display:flex;justify-content:center}
-.world-title{font-family:"ZCOOL XiaoWei",serif;font-size:17px;color:var(--ink);margin-bottom:8px}
-.world-desc{font-size:12px;color:var(--ink-light);line-height:1.6;margin-bottom:12px}
-.world-tags{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
-@media(max-width:768px){.world-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.world-grid{grid-template-columns:1fr}}
+/* 世界观百科页面 — 旧书本排版风格，适配长篇文字阅读 */
+.article-text p strong{color:var(--tea-brown);font-weight:400}
+.article-text p{text-indent:0}
+@media(max-width:640px){.article-text p{font-size:13px}}
 </style>
