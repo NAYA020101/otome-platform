@@ -17,6 +17,12 @@ const routes = [
   { path: '/ai/character', name: 'ai-character', component: () => import('../views/ai/AiCharacterView.vue') },
   { path: '/ai/healing', name: 'ai-healing', component: () => import('../views/ai/AiHealingView.vue') },
   { path: '/ai/inspiration', name: 'ai-inspiration', component: () => import('../views/ai/AiInspirationView.vue') },
+  // 新增页面
+  { path: '/characters', name: 'characters', component: () => import('../views/CharacterGallery.vue') },
+  { path: '/gallery', name: 'gallery', component: () => import('../views/CGGallery.vue') },
+  { path: '/world', name: 'world', component: () => import('../views/WorldView.vue') },
+  { path: '/events', name: 'events', component: () => import('../views/EventCalendar.vue') },
+  { path: '/ost', name: 'ost', component: () => import('../views/OSTView.vue') },
   { path: '/:pathMatch(.*)*', name: 'not-found', component: () => import('../views/NotFound.vue') },
 ]
 
